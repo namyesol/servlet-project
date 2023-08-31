@@ -1,92 +1,35 @@
 package com.dao.community;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.config.MySqlSessionFactory;
 import com.dto.community.ReplyDTO;
 import com.dto.community.ReplyDetailsDTO;
 
-
 public class ReplyDAO {
 	
-	public void insert(ReplyDTO reply) {
-		SqlSession session = getSession();
-		try {
-			session.insert("ReplyMapper.insert", reply);
-			session.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		
+	public void insert(SqlSession session, ReplyDTO reply) {
+		session.insert("ReplyMapper.insert", reply);
+	}
+
+	public ReplyDTO getReplyByNo(SqlSession session, Long replyNo) {
+		return session.selectOne("ReplyMapper.getReplyByNo", replyNo);
+	}
+
+	public List<ReplyDTO> getReplyListByComNo(SqlSession session, Long comNo) {
+		return session.selectList("ReplyMapper.getReplyListByComNo");
+	}
+
+	public void update(SqlSession session, ReplyDTO reply) {
+		session.update("ReplyMapper.update", reply);
+	}
+
+	public void delete(SqlSession session, Long replyNo) {
+		session.delete("ReplyMapper.delete", replyNo);
 	}
 	
-	private SqlSession getSession() {
-		return MySqlSessionFactory.getSession();
+	public List<ReplyDetailsDTO> getReplyDetailsListByComNo(SqlSession session, Long comNo) {
+		return session.selectList("ReplyMapper.getReplyDetailsListByComNo", comNo);
 	}
-
-	public ReplyDTO getReplyByNo(Long replyNo) {
-		SqlSession session = getSession();
-		try {
-			return session.selectOne("ReplyMapper.getReplyByNo", replyNo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return null;
-	}
-
-	public List<ReplyDTO> getReplyListByComNo(Long comNo) {
-		SqlSession session = getSession();
-		try {
-			return session.selectList("ReplyMapper.getReplyListByComNo");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return Collections.emptyList();
-	}
-
-	public void update(ReplyDTO reply) {
-		SqlSession session = getSession();
-		try {
-			session.update("ReplyMapper.update", reply);
-			session.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	public void delete(Long replyNo) {
-		SqlSession session = getSession();
-		try {
-			session.delete("ReplyMapper.delete", replyNo);
-			session.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-	
-	public List<ReplyDetailsDTO> getReplyDetailsListByComNo(Long comNo) {
-		SqlSession session = getSession();
-		try {
-			return session.selectList("ReplyMapper.getReplyDetailsListByComNo", comNo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return Collections.emptyList();
-	}
-
 }

@@ -1,140 +1,54 @@
 package com.dao.community;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.config.MySqlSessionFactory;
 import com.dto.community.CommunityDTO;
 import com.dto.community.CommunityDetailsDTO;
 
 public class CommunityDAO {
 
 	
-	public void insert(CommunityDTO community) {
-		SqlSession session = getSession();
-		try {
-			session.insert("CommunityMapper.insert", community);
-			session.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+	public void insert(SqlSession session, CommunityDTO community) {
+		session.insert("CommunityMapper.insert", community);
 	}
 
-	private SqlSession getSession() {
-		return MySqlSessionFactory.getSession();
+	public CommunityDTO getCommunityByNo(SqlSession session, Long comNo) {
+		return session.selectOne("CommunityMapper.getCommunityByNo", comNo);
+	}
+
+	public List<CommunityDTO> getCommunityByMemNo(SqlSession session, Long memNo) {	
+		return session.selectOne("CommunityMapper.getCommunityByMemNo", memNo);
+	}
+
+	public List<CommunityDTO> getCommunityList(SqlSession session ) {
+		return session.selectList("CommunityMapper.getCommunityList");
+	}
+
+	public void update(SqlSession session, CommunityDTO communtiy) {
+		session.update("CommunityMapper.update", communtiy);
+	}
+
+	public void delete(SqlSession session, Long comNo) {
+		session.delete("CommunityMapper.delete", comNo);
+	}
+
+	public void increaseViews(SqlSession session, Long comNo) {
+		session.update("CommunityMapper.increaseViews", comNo);		
 	}
 	
-	public CommunityDTO getCommunityByNo(Long comNo) {
-		SqlSession session = getSession();
-		try {
-			return session.selectOne("CommunityMapper.getCommunityByNo", comNo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return null;
+	public CommunityDetailsDTO getCommunityDetailsByNo(SqlSession session, Long comNo) {
+		return session.selectOne("CommunityMapper.getCommunityDetailsByNo", comNo);
 	}
 
-	public List<CommunityDTO> getCommunityByMemNo(Long memNo) {
-		SqlSession session = getSession();
-		try {
-			return session.selectOne("CommunityMapper.getCommunityByMemNo", memNo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return null;
-	}
-
-	public List<CommunityDTO> getCommunityList() {
-		SqlSession session = getSession();
-		try {
-			return session.selectList("CommunityMapper.getCommunityList");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return Collections.emptyList();
-	}
-
-	public void update(CommunityDTO communtiy) {
-		SqlSession session = getSession();
-		try {
-			session.update("CommunityMapper.update", communtiy);
-			session.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	public void delete(Long comNo) {
-		SqlSession session = getSession();
-		try {
-			session.delete("CommunityMapper.delete", comNo);
-			session.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	public void increaseViews(Long comNo) {
-		SqlSession session = getSession();
-		try {
-			session.update("CommunityMapper.increaseViews", comNo);
-			session.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-	
-	public CommunityDetailsDTO getCommunityDetailsByNo(Long comNo) {
-		SqlSession session = getSession();
-		try {
-			return session.selectOne("CommunityMapper.getCommunityDetailsByNo", comNo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return null;
-	}
-
-	public List<CommunityDetailsDTO> getCommunityDetailsList() {
-		SqlSession session = getSession();
-		try {
-			return session.selectList("CommunityMapper.getCommunityDetailsList");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return Collections.emptyList();
+	public List<CommunityDetailsDTO> getCommunityDetailsList(SqlSession session) {
+		return session.selectList("CommunityMapper.getCommunityDetailsList");
 	}
 	
 	
-	public Long count() {
-		SqlSession session = getSession();
-		try {
-			return session.selectOne("CommunityMapper.count");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return null;
+	public Long count(SqlSession session) {
+		return session.selectOne("CommunityMapper.count");
 	}
 	
 }
