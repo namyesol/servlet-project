@@ -32,8 +32,8 @@
 					
 					<div class="button-group d-flex justify-content-center gap-2">
 						<button type="submit" class="btn btn-outline-primary">수정</button>
-						<c:url var="communityListUrl" value="/CommunityListServlet"/>
-			            <a href="${communityListUrl}" class="btn btn-outline-dark">뒤로가기</a>
+						<c:url var="communityDetailsUrl" value="/CommunityDetailsServlet?comNo=${community.comNo}"/>
+			            <a href="${communityDetailsUrl}" class="btn btn-outline-dark">뒤로가기</a>
 					</div>
 				</form>
 			</section>

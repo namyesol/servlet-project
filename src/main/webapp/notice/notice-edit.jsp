@@ -32,8 +32,8 @@
 					
 					<div class="button-group d-flex justify-content-center gap-2">
 						<button type="submit" class="btn btn-outline-primary">수정</button>
-						<c:url var="noticeListUrl" value="/NoticeListServlet"/>
-			            <a href="${noticeListUrl}" class="btn btn-outline-dark">뒤로가기</a>
+						<c:url var="noticeDetailsUrl" value="/NoticeDetailsServlet?noticeNo=${notice.noticeNo}"/>
+			            <a href="${noticeDetailsUrl}" class="btn btn-outline-dark">뒤로가기</a>
 					</div>
 				</form>
 			</section>
