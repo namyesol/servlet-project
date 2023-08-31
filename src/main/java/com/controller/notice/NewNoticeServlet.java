@@ -35,7 +35,7 @@ public class NewNoticeServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			String nextPage = "notice/new-notice.jsp";
+			String nextPage = "notice/notice-new.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 			dispatcher.forward(request, response);
 		}

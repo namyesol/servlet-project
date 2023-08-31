@@ -42,7 +42,7 @@ public class EditCommunityServlet extends HttpServlet{
 
 			request.setAttribute("community", community);
 
-			String nextPage = "community/edit-community.jsp";
+			String nextPage = "community/community-edit.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 			dispatcher.forward(request, response);
 		}

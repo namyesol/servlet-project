@@ -43,7 +43,7 @@ public class EditNoticeServlet extends HttpServlet {
 
 			request.setAttribute("notice", notice);
 
-			String nextPage = "notice/edit-notice.jsp";
+			String nextPage = "notice/notice-edit.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 			dispatcher.forward(request, response);
 		}

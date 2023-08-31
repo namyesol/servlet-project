@@ -34,7 +34,7 @@ public class NewCommunityServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			String nextPage = "/community/new-community.jsp";
+			String nextPage = "/community/community-new.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 			dispatcher.forward(request, response);
 		}
