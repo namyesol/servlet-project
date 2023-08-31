@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+
+.wrapper {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+}
+
+.content {
+  padding: 3rem;
+  font-size: 2rem;
+  border-radius: 1rem;
+}

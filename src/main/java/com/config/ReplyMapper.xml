@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReplyMapper">
+		
+    <resultMap id="ReplyResultMap" type="ReplyDTO">
+        <id property="replyNo" column="reply_no"/>
+        <result property="memberNo" column="member_no"/>
+        <result property="comNo" column="com_no"/>
+        <result property="content" column="reply_content"/>
+        <result property="createdAt" column="reply_created_at"/>
+    </resultMap>
+    
+    <resultMap id="ReplyDetailsResultMap" type="ReplyDetailsDTO">
+        <id property="replyNo" column="reply_no"/>
+        <result property="memberNo" column="member_no"/>
+        <result property="memberName" column="member_name"/>
+        <result property="comNo" column="com_no"/>
+        <result property="content" column="reply_content"/>
+        <result property="createdAt" column="reply_created_at"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="ReplyDTO">
+        <selectKey keyProperty="replyNo" resultType="Long" order="BEFORE">
+            SELECT REPLY_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        
+        INSERT INTO REPLY
+            (reply_no, member_no, com_no, reply_content, reply_created_at)
+        VALUES
+            (#{replyNo}, #{memberNo}, #{comNo}, #{content}, #{createdAt})
+    </insert>
+
+    <select id="getReplyByNo" parameterType="Long" resultMap="ReplyResultMap">
+        SELECT reply_no, member_no, com_no, reply_content, reply_created_at
+        FROM REPLY
+        WHERE reply_no=#{replyNo}
+    </select>
+
+    <select id="getReplyListByComNo" parameterType="Long" resultMap="ReplyResultMap">
+        SELECT reply_no, member_no, com_no, reply_content, reply_created_at
+        FROM REPLY
+        WHERE com_no=#{com_no}
+    </select>
+
+    <update id="update" parameterType="ReplyDTO">
+        UPDATE REPLY
+        SET
+        	reply_content = #{content}
+        WHERE reply_no=#{replyNo}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM REPLY WHERE reply_no=#{replyNo}
+    </delete>
+    
+    
+    <select id="getReplyDetailsListByComNo" parameterType="Long" resultMap="ReplyDetailsResultMap">
+        SELECT
+            r.reply_no as reply_no,
+            r.com_no as com_no,
+            r.reply_content as reply_content,
+            r.reply_created_at as reply_created_at,
+            m.member_num as member_no,
+            m.member_name as member_name
+        FROM reply r
+            INNER JOIN member m
+            ON r.member_no = m.member_num
+        WHERE r.com_no=#{comNo}
+        ORDER BY reply_created_at ASC
+    </select>
+</mapper>

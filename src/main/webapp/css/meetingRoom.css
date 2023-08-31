@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+body, div, h1, textarea, input, button, a, p {
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+
+#contents {
+    display: flex;
+    position : fixed;
+    top : 150px;
+    left : 500px;
+    width: 1200px; /* 내용 영역의 폭을 설정 */
+    min-width: 1200px;
+	box-sizing: border-box;
+    align-items: center;
+}
+
+ form {
+    display: flex;
+ }
+
+#divLeft {
+    margin-right: 40px; /* #divRight와의 간격을 설정 */
+}
+
+#divRight {
+    margin-left: 40px; /* #divLeft와의 간격을 설정 */
+}
+
+/* 날짜,회의실,시간 */
+.reserveDiv {
+    margin-bottom: 60px;
+    align-items: center;
+    gap: 10px;
+}
+
+select, .reserveDiv input[type="date"] {
+	height:35px;
+	width: 350px;
+}
+
+/* 이용안내 */
+.guide p{
+	font-size: 20px;
+	margin-left: 25px;
+}
+.guide ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.guide div li{
+	height: 100%;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.guide{
+	float: right;
+	margin-right: 60px;
+	padding: 10px 10px 10px 10px;
+	height: 200px;
+}
+
+#buttonDiv {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.detailDiv{
+    width: 480px;
+	height: 580px;
+    border: 2px solid rgb(147, 169, 209);
+	background-color: rgba(147, 169, 209,0.5);
+}
+
+button {
+    padding: 10px 20px;
+    background-color: transparent; /* 배경색을 투명하게 설정 */
+    color: rgba(54, 77, 121);
+    border: 2px solid rgba(54, 77, 121,0.8); /* 테두리 추가 */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button:hover {
+    background-color: rgba(147, 169, 209);
+    color: #fff; /* 텍스트 색상 변경 */
+}

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeMapper">
+
+	<resultMap id="NoticeResultMap" type="NoticeDTO">
+		<id property="noticeNo" column="notice_no" />
+		<result property="memberNo" column="member_no" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="views" column="views" />
+		<result property="createdAt" column="created_at" />
+	</resultMap>
+
+	<resultMap id="NoticeDetailsResultMap" type="NoticeDetailsDTO">
+		<id property="noticeNo" column="notice_no" />
+		<result property="memberNo" column="member_no" />
+		<result property="memberName" column="member_name" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="views" column="views" />
+		<result property="createdAt" column="created_at" />
+	</resultMap>
+
+	<insert id="insert" parameterType="NoticeDTO">
+		<selectKey keyProperty="noticeNo" resultType="Long"
+			order="BEFORE">
+			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO NOTICE (notice_no, member_no, title, content, views,
+		created_at)
+		VALUES (#{noticeNo}, #{memberNo}, #{title}, #{content},
+		#{views}, #{createdAt})
+	</insert>
+
+	<select id="getNoticeByNo" parameterType="Long"
+		resultMap="NoticeResultMap">
+		SELECT *
+		FROM NOTICE
+		WHERE notice_no=#{noticeNo}
+	</select>
+
+
+	<select id="getNotices" resultMap="NoticeResultMap">
+		SELECT *
+		FROM NOTICE
+	</select>
+
+
+
+	<select id="getNoticeDetailsByNo" parameterType="Long" resultMap="NoticeDetailsResultMap">
+		select
+			n.notice_no as notice_no,
+			n.member_no as meber_no,
+			n.title as title,
+			n.content as content,
+			n.views as views,
+			n.created_at as created_at,
+			m.member_name as member_name
+		from notice n
+		left outer join member m
+		on n.member_no = m.member_num
+		where n.notice_no = #{noticeNo}
+	</select>
+	
+	<select id="getNoticeDetailsList" resultMap="NoticeDetailsResultMap">
+		select
+			n.notice_no as notice_no,
+			n.member_no as member_no,
+			n.title as title,
+			n.content as content,
+			n.views as views,
+			n.created_at as created_at,
+			m.member_name as member_name
+		from notice n
+		left outer join member m
+		on n.member_no = m.member_num
+		order by notice_no DESC
+	</select>
+
+	<update id="update" parameterType="NoticeDTO">
+		UPDATE NOTICE
+		SET
+		title=#{title},
+		content=#{content}
+		WHERE notice_no=#{noticeNo}
+	</update>
+
+	<delete id="delete" parameterType="Long">
+		DELETE FROM NOTICE
+		WHERE
+		notice_no=#{noticeNo}
+	</delete>
+	
+	<update id="increaseViews" parameterType="Long">
+	   UPDATE NOTICE
+	   SET
+	       views=views+1
+	   WHERE notice_no=#{noticeNo}
+	</update>
+
+</mapper>

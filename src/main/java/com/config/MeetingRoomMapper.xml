@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MeetingRoomMapper">
+
+	<insert id="reserve" parameterType="MeetingRoomDTO">
+		insert into meeting_room values(#{member_num}, #{meeting_num}, #{meeting_date}, #{meeting_time}, #{reservation})
+	</insert>
+	
+	<select id="select" resultType="MeetingRoomDTO"  parameterType="int">
+		select * from meeting_room where member_num = #{member_num} 
+	</select>
+		
+<!-- 	<update id="memberUpdate" parameterType="MemberDTO"> -->
+<!-- 		update member set post = #{post}, addr1 = #{addr1}, addr2 = #{addr2}, phone1 = #{phone1},  -->
+<!-- 		phone2 = #{phone2}, phone3 = #{phone3}, email1 = #{email1}, email2 = #{email2} -->
+<!-- 		where userid = #{userid} -->
+<!-- 	</update> -->
+</mapper>

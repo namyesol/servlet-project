@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommunityMapper">
+	<resultMap id="CommunityResultMap" type="CommunityDTO">
+		<id property="comNo" column="com_no" />
+		<result property="memberNo" column="member_no" />
+		<result property="title" column="com_title" />
+		<result property="content" column="com_content" />
+		<result property="views" column="com_views" />
+		<result property="createdAt" column="com_created_at" />
+	</resultMap>
+
+	<resultMap id="CommunityDetailsResultMap"
+		type="CommunityDetailsDTO">
+		<id property="comNo" column="com_no" />
+		<result property="memberNo" column="member_no" />
+		<result property="memberName" column="member_name" />
+		<result property="title" column="com_title" />
+		<result property="content" column="com_content" />
+		<result property="views" column="com_views" />
+		<result property="createdAt" column="com_created_at" />
+	</resultMap>
+
+	<insert id="insert" parameterType="CommunityDTO">
+		<selectKey keyProperty="comNo" resultType="Long" order="BEFORE">
+			SELECT COMMUNITY_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO COMMUNITY
+		(com_no, member_no, com_title, com_content, com_views, com_created_at)
+		VALUES
+		(#{comNo}, #{memberNo}, #{title}, #{content}, #{views}, #{createdAt})
+	</insert>
+
+	<select id="getCommunityByNo" parameterType="Long"
+		resultMap="CommunityResultMap">
+		SELECT com_no, member_no, com_title, com_content, com_views, com_created_at
+		FROM COMMUNITY
+		where com_no=#{comNo}
+	</select>
+
+	<select id="getCommunityByMemNo" parameterType="Long"
+		resultMap="CommunityResultMap">
+		SELECT com_no, member_no, com_title, com_content, com_views, com_created_at
+		FROM COMMUNITY
+		where member_no=#{memberNo}
+	</select>
+
+	<select id="getCommunityList" resultMap="CommunityResultMap">
+		SELECT com_no, member_no, com_title, com_content, com_views, com_created_at
+		FROM COMMUNITY
+	</select>
+
+	<update id="update" parameterType="CommunityDTO">
+		UPDATE COMMUNITY
+		SET
+			com_title = #{title},
+			com_content = #{content}
+		WHERE com_no=#{comNo}
+	</update>
+
+	<delete id="delete" parameterType="Long">
+		DELETE FROM COMMUNITY WHERE com_no=#{comNo}
+	</delete>
+
+	<select id="getCommunityDetailsByNo" parameterType="Long"
+		resultMap="CommunityDetailsResultMap">
+		SELECT
+			c.com_no as com_no,
+			c.com_title as com_title,
+			c.com_content as com_content,
+			c.com_views as com_views,
+			c.com_created_at as com_created_at,
+			m.member_num as member_no,
+			m.member_name as member_name
+		FROM community c
+		INNER JOIN member m
+		ON c.member_no = m.member_num
+		WHERE c.com_no=#{comNo}
+	</select>
+
+	<select id="getCommunityDetailsList" resultMap="CommunityDetailsResultMap">
+		SELECT
+			c.com_no as com_no,
+			c.com_title as com_title,
+			c.com_content as com_content,
+			c.com_views as com_views,
+			c.com_created_at as com_created_at,
+			m.member_num as member_no,
+			m.member_name as member_name
+		FROM community c
+		INNER JOIN member m
+		ON c.member_no = m.member_num
+		ORDER BY com_no DESC
+	</select>
+
+	<update id="increaseViews" parameterType="Long">
+	   UPDATE COMMUNITY
+	   SET
+	       com_views=com_views+1
+	   WHERE com_no=#{comNo}
+	</update>
+
+	<select id="count" resultType="Long">
+		SELECT COUNT(DISTINCT C.com_no)
+		FROM COMMUNITY C
+	</select>
+</mapper>

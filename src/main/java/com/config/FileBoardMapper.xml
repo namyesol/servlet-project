@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.PersonMapper">
+	<select id="fileContentList" resultType="FileBoardDTO">
+		select
+		file_board_no,
+		member_num,
+		file_board_date,
+		file_board_title,
+		file_board_content,
+		file_board_view,
+		file_name,
+		file_rename,
+		file_path
+		from file_board
+		where file_path = #{file_path}
+	</select>
+
+	<select id="fileContentOne" resultType="FileBoardDTO">
+		select file_board_no,
+		member_num,
+		file_board_date,
+		file_board_title,
+		file_board_content,
+		file_board_view,
+		file_name,
+		file_rename,
+		file_path 
+		from file_board 
+		where file_board_no = #{file_board_no}
+	</select>
+</mapper>
