@@ -39,7 +39,7 @@
     <select id="getReplyListByComNo" parameterType="Long" resultMap="ReplyResultMap">
         SELECT reply_no, member_no, com_no, reply_content, reply_created_at
         FROM REPLY
-        WHERE com_no=#{com_no}
+        WHERE com_no=#{comNo}
     </select>
 
     <update id="update" parameterType="ReplyDTO">

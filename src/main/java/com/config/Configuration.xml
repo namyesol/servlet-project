@@ -5,6 +5,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 
    <properties resource="com/config/jdbc.properties" />
+   <settings>
+   	<setting name="jdbcTypeForNull" value="NULL"/>
+   </settings>
    
    <typeAliases>
     <typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
