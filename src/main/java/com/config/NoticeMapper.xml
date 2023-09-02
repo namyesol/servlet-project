@@ -29,8 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 
-		INSERT INTO NOTICE (notice_num, member_num, title, content, views,
-		created_at)
+		INSERT INTO NOTICE (notice_num, member_num, title, content, views, created_at)
 		VALUES (#{noticeNum}, #{memberNum}, #{title}, #{content},
 		#{views}, #{createdAt})
 	</insert>
