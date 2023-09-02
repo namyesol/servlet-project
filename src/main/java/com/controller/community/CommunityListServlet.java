@@ -1,7 +1,6 @@
 package com.controller.community;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.common.Constants;
+import com.common.Page;
+import com.common.PageResponseDTO;
 import com.dto.MemberDTO;
 import com.dto.community.CommunityDetailsDTO;
 import com.service.community.CommunityService;
@@ -20,6 +24,8 @@ import com.service.community.CommunityService;
 public class CommunityListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6942534314363340753L;
+	
+	private static final Logger log = LoggerFactory.getLogger(CommunityListServlet.class);
 	
 	private CommunityService communityService;
 
@@ -35,15 +41,26 @@ public class CommunityListServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			List<CommunityDetailsDTO> communityDetailsList = communityService.getCommunityDetailsList();
-
-			request.setAttribute("communityDetailsList", communityDetailsList);
-
+			Page page = buildPageFrom(request);
+			
+			PageResponseDTO<CommunityDetailsDTO> pageResponse = communityService.getCommunityDetailsList(page);
+			request.setAttribute("pageResponse", pageResponse);
+			
 			String nextPage = "community/community-list.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 			dispatcher.forward(request, response);
 		}
 	}
 	
+	private Page buildPageFrom(HttpServletRequest request) {
+		String pageParam = request.getParameter("page");
+		String sizeParam = request.getParameter("size");
+		int pageNumber = pageParam == null ? Page.START_PAGE_OFFSET : Integer.parseInt(pageParam);
+		int size = sizeParam == null ? Page.DEFAULT_PAGE_SIZE : Integer.parseInt(sizeParam);
+		
+		log.debug("pageParam=[{}], sizeparam=[{}]", pageParam, sizeParam);
+		
+		return new Page(pageNumber, size);
+	}
 	
 }
