@@ -2,6 +2,7 @@ package com.controller.community;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,16 +34,16 @@ public class NewReplyServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Long memberNo = Long.valueOf(member.getMember_num());
-			Long comNo = Long.valueOf(request.getParameter("comNo"));
+			Long memberNum = Long.valueOf(member.getMember_num());
+			Long comNum = Long.valueOf(request.getParameter("comNum"));
 			String content = request.getParameter("content");
 			
-			ReplyDTO reply = new ReplyDTO(memberNo, comNo, content);
+			ReplyDTO reply = new ReplyDTO(memberNum, comNum, content);
 			
 			replyService.save(reply);
 			
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityDetailsServlet"+ "?comNo=" + comNo);
+			response.sendRedirect(contextPath + "/CommunityDetailsServlet"+ "?comNum=" + comNum);
 		}
 	}
 

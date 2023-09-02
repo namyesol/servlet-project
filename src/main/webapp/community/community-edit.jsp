@@ -19,7 +19,7 @@
       	</div>
       	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       		<section class="mt-3 mb-3">
-			    <c:url var="editCommunityActionUrl" value="/EditCommunityServlet?comNo=${community.comNo}"/>
+			    <c:url var="editCommunityActionUrl" value="/EditCommunityServlet?comNum=${community.comNum}"/>
 				<form action="${editCommunityActionUrl}" method="post">
 					<div class="mb-3">
 						<label for="title" class="form-label">제목</label>
@@ -32,7 +32,7 @@
 					
 					<div class="button-group d-flex justify-content-center gap-2">
 						<button type="submit" class="btn btn-outline-primary">수정</button>
-						<c:url var="communityDetailsUrl" value="/CommunityDetailsServlet?comNo=${community.comNo}"/>
+						<c:url var="communityDetailsUrl" value="/CommunityDetailsServlet?comNum=${community.comNum}"/>
 			            <a href="${communityDetailsUrl}" class="btn btn-outline-dark">뒤로가기</a>
 					</div>
 				</form>

@@ -36,9 +36,9 @@ public class EditCommunityServlet extends HttpServlet{
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Long comNo = Long.parseLong(request.getParameter("comNo"));
+			Long comNum = Long.parseLong(request.getParameter("comNum"));
 
-			CommunityDTO community = communityService.getCommunityByNo(comNo);
+			CommunityDTO community = communityService.getCommunityByNum(comNum);
 
 			request.setAttribute("community", community);
 
@@ -57,8 +57,8 @@ public class EditCommunityServlet extends HttpServlet{
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Long memberNo = Long.valueOf(member.getMember_num());
-			Long comNo = Long.parseLong(request.getParameter("comNo"));
+			Long memberNum = Long.valueOf(member.getMember_num());
+			Long comNum = Long.parseLong(request.getParameter("comNum"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 
@@ -66,10 +66,10 @@ public class EditCommunityServlet extends HttpServlet{
 			updateDTO.setTitle(title);
 			updateDTO.setContent(content);
 			
-			communityService.update(comNo, memberNo, updateDTO);
+			communityService.update(comNum, memberNum, updateDTO);
 			
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNo=" + comNo);
+			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNum=" + comNum);
 		}
 	}
 }

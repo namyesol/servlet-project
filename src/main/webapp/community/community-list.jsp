@@ -43,10 +43,10 @@
 			       </thead>
 			       <tbody>               
 		        	<c:forEach var="communityDetails" items="${communityDetailsList}">
-		        		<c:url var="communityDetailsUrl" value="/CommunityDetailsServlet?comNo=${communityDetails.comNo}"/>
+		        		<c:url var="communityDetailsUrl" value="/CommunityDetailsServlet?comNum=${communityDetails.comNum}"/>
 			        	<tr>
 					        <th scope="row">
-					        	<a href="${communityDetailsUrl}">${communityDetails.comNo}</a>
+					        	<a href="${communityDetailsUrl}">${communityDetails.comNum}</a>
 				        	</th>
 				        	<td>
 				        		<a href="${communityDetailsUrl}">${communityDetails.title}</a>

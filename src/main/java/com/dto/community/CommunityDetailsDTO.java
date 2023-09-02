@@ -4,28 +4,28 @@ import java.util.Date;
 
 public class CommunityDetailsDTO {
 
-	private Long comNo;
-	private Long memberNo;
+	private Long comNum;
+	private Long memberNum;
 	private String memberName;
 	private String title;
 	private String content;
 	private Integer views;
 	private Date createdAt;
 
-	public Long getComNo() {
-		return comNo;
+	public Long getComNum() {
+		return comNum;
 	}
 
-	public void setComNo(Long comNo) {
-		this.comNo = comNo;
+	public void setComNum(Long comNum) {
+		this.comNum = comNum;
 	}
 
-	public Long getMemberNo() {
-		return memberNo;
+	public Long getMemberNum() {
+		return memberNum;
 	}
 
-	public void setMemberNo(Long memberNo) {
-		this.memberNo = memberNo;
+	public void setMemberNum(Long memberNum) {
+		this.memberNum = memberNum;
 	}
 
 	public String getMemberName() {

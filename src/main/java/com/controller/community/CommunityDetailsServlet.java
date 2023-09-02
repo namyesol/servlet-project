@@ -40,12 +40,12 @@ public class CommunityDetailsServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			long comNo = Long.parseLong(request.getParameter("comNo"));
+			long comNum = Long.parseLong(request.getParameter("comNum"));
 
-			communityService.increaseViews(comNo);
+			communityService.increaseViews(comNum);
 			
-			CommunityDetailsDTO communityDetails = communityService.getCommunityDetailsByNo(comNo);
-			List<ReplyDetailsDTO> replyDetailsList = replyService.getReplyDetailsListByComNo(comNo);
+			CommunityDetailsDTO communityDetails = communityService.getCommunityDetailsByNum(comNum);
+			List<ReplyDetailsDTO> replyDetailsList = replyService.getReplyDetailsListByComNum(comNum);
 			
 			request.setAttribute("communityDetails", communityDetails);
 			request.setAttribute("replyDetailsList", replyDetailsList);

@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{views}, #{createdAt})
 	</insert>
 
-	<select id="getNoticeByNo" parameterType="Long"
+	<select id="getNoticeByNum" parameterType="Long"
 		resultMap="NoticeResultMap">
 		SELECT *
 		FROM NOTICE
@@ -50,10 +50,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-	<select id="getNoticeDetailsByNo" parameterType="Long" resultMap="NoticeDetailsResultMap">
+	<select id="getNoticeDetailsByNum" parameterType="Long" resultMap="NoticeDetailsResultMap">
 		select
 			n.notice_num as notice_num,
-			n.member_num as meber_no,
+			n.member_num as member_num,
 			n.title as title,
 			n.content as content,
 			n.views as views,

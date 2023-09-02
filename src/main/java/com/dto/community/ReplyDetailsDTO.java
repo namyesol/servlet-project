@@ -3,30 +3,30 @@ package com.dto.community;
 import java.util.Date;
 
 public class ReplyDetailsDTO {
-    private Long replyNo;
-    private Long memberNo;
+    private Long replyNum;
+    private Long memberNum;
     private String memberName;
-    private Long comNo;
+    private Long comNum;
     private String content;
     private Date createdAt;
 
     public ReplyDetailsDTO() {
     }
 
-	public Long getReplyNo() {
-		return replyNo;
+	public Long getReplyNum() {
+		return replyNum;
 	}
 
-	public void setReplyNo(Long replyNo) {
-		this.replyNo = replyNo;
+	public void setReplyNum(Long replyNum) {
+		this.replyNum = replyNum;
 	}
 
-	public Long getMemberNo() {
-		return memberNo;
+	public Long getMemberNum() {
+		return memberNum;
 	}
 
-	public void setMemberNo(Long memberNo) {
-		this.memberNo = memberNo;
+	public void setMemberNum(Long memberNum) {
+		this.memberNum = memberNum;
 	}
 
 	public String getMemberName() {
@@ -37,12 +37,12 @@ public class ReplyDetailsDTO {
 		this.memberName = memberName;
 	}
 
-	public Long getComNo() {
-		return comNo;
+	public Long getComNum() {
+		return comNum;
 	}
 
-	public void setComNo(Long comNo) {
-		this.comNo = comNo;
+	public void setComNum(Long comNum) {
+		this.comNum = comNum;
 	}
 
 	public String getContent() {
@@ -60,5 +60,7 @@ public class ReplyDetailsDTO {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
+
 
 }

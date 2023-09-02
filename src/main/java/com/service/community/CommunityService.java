@@ -41,10 +41,10 @@ public class CommunityService {
 		return MySqlSessionFactory.getSession();
 	}
 
-    public CommunityDTO getCommunityByNo(Long comNo) {
+    public CommunityDTO getCommunityByNum(Long comNum) {
     	SqlSession session = getSession();
     	try {
-	        CommunityDTO community = communityDao.getCommunityByNo(session, comNo);
+	        CommunityDTO community = communityDao.getCommunityByNum(session, comNum);
 	        return community;
     	} catch (Exception e) {
 			e.printStackTrace();
@@ -67,12 +67,12 @@ public class CommunityService {
 		return Collections.emptyList();
     }
 
-    public void update(Long comNo, Long memberNo, CommunityDTO updateParam) {
+    public void update(Long comNum, Long memberNum, CommunityDTO updateParam) {
 		SqlSession session = getSession();
 		try {
-	        CommunityDTO community = communityDao.getCommunityByNo(session, comNo);
+	        CommunityDTO community = communityDao.getCommunityByNum(session, comNum);
 	
-	        if (!community.getMemberNo().equals(memberNo)) {
+	        if (!community.getMemberNum().equals(memberNum)) {
 	            return;
 	        }
 	        
@@ -89,20 +89,20 @@ public class CommunityService {
 		}
     }
 
-    public void delete(Long comNo, Long memberNo) {
+    public void delete(Long comNum, Long memberNum) {
 		SqlSession session = getSession();
 		try {
-	        CommunityDTO community = communityDao.getCommunityByNo(session, comNo);
+	        CommunityDTO community = communityDao.getCommunityByNum(session, comNum);
 	
-	        if (!community.getMemberNo().equals(memberNo)) {
+	        if (!community.getMemberNum().equals(memberNum)) {
 	            return;
 	        }
 	        
-	        List<ReplyDTO> replyList = replyDao.getReplyListByComNo(session, comNo);
+	        List<ReplyDTO> replyList = replyDao.getReplyListByComNum(session, comNum);
 	        for (ReplyDTO reply : replyList) {
-	            replyDao.delete(session, reply.getReplyNo());
+	            replyDao.delete(session, reply.getReplyNum());
 	        }
-	        communityDao.delete(session, comNo);
+	        communityDao.delete(session, comNum);
 	        
 	        session.commit();
 		} catch (Exception e) {
@@ -112,10 +112,10 @@ public class CommunityService {
 		}
     }
     
-    public void increaseViews(Long comNo) {
+    public void increaseViews(Long comNum) {
     	SqlSession session = getSession();
 		try {
-			communityDao.increaseViews(session, comNo);
+			communityDao.increaseViews(session, comNum);
 			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,10 +124,10 @@ public class CommunityService {
 		}
     }
 
-    public CommunityDetailsDTO getCommunityDetailsByNo(Long replyNo) {
+    public CommunityDetailsDTO getCommunityDetailsByNum(Long replyNum) {
     	SqlSession session = getSession();
     	try {
-    		return communityDao.getCommunityDetailsByNo(session, replyNo);
+    		return communityDao.getCommunityDetailsByNum(session, replyNum);
     	} catch (Exception e) {
     		e.printStackTrace();
     	} finally {
