@@ -87,7 +87,7 @@
 	</update>
 
 	<select id="count" resultType="java.lang.Integer">
-		SELECT COUNT(DISTINCT C.com_no)
+		SELECT COUNT(DISTINCT C.com_num)
 		FROM COMMUNITY C
 	</select>
 	
@@ -110,7 +110,7 @@
 				FROM community C
 				INNER JOIN member M
 				ON C.member_num = M.member_num
-				ORDER BY com_no DESC
+				ORDER BY com_num DESC
 			) subq
 			WHERE ROWNUM <= ( #{page} * #{size} )
 		)
