@@ -13,8 +13,8 @@ public class NoticeDAO {
 		session.insert("NoticeMapper.insert", notice);
 	}
 
-	public NoticeDTO getNoticeByNo(SqlSession session, Long noticeNo) {
-		return session.selectOne("NoticeMapper.getNoticeByNo", noticeNo);
+	public NoticeDTO getNoticeByNo(SqlSession session, Long noticeNum) {
+		return session.selectOne("NoticeMapper.getNoticeByNo", noticeNum);
 	}
 
 	public List<NoticeDTO> getNotices(SqlSession session) {
@@ -25,19 +25,19 @@ public class NoticeDAO {
 		session.update("NoticeMapper.update", notice);
 	}
 
-	public void delete(SqlSession session, Long noticeNo) {
-		session.delete("NoticeMapper.delete", noticeNo);
+	public void delete(SqlSession session, Long noticeNum) {
+		session.delete("NoticeMapper.delete", noticeNum);
 	}
 
-	public NoticeDetailsDTO getNoticeDetailsByNo(SqlSession session, Long noticeNo) {
-		return session.selectOne("NoticeMapper.getNoticeDetailsByNo", noticeNo);
+	public NoticeDetailsDTO getNoticeDetailsByNo(SqlSession session, Long noticeNum) {
+		return session.selectOne("NoticeMapper.getNoticeDetailsByNo", noticeNum);
 	}
 
 	public List<NoticeDetailsDTO> getNoticeDetailsList(SqlSession session) {
 		return session.selectList("NoticeMapper.getNoticeDetailsList");
 	}
 
-	public void increaseViews(SqlSession session, Long noticeNo) {
-		session.update("NoticeMapper.increaseViews", noticeNo);
+	public void increaseViews(SqlSession session, Long noticeNum) {
+		session.update("NoticeMapper.increaseViews", noticeNum);
 	}
 }

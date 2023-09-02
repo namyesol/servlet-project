@@ -39,10 +39,10 @@
 			       </thead>
 			       <tbody>               
 		        	<c:forEach var="notice" items="${notices}">
-		        		<c:url var="NoticeDetailsUrl" value="/NoticeDetailsServlet?noticeNo=${notice.noticeNo}"/>
+		        		<c:url var="NoticeDetailsUrl" value="/NoticeDetailsServlet?noticeNum=${notice.noticeNum}"/>
 			        	<tr>
 					        <th scope="row">
-					        	<a href="${NoticeDetailsUrl}">${notice.noticeNo}</a>
+					        	<a href="${NoticeDetailsUrl}">${notice.noticeNum}</a>
 				        	</th>
 				        	<td>
 				        		<a href="${NoticeDetailsUrl}">${notice.title}</a>

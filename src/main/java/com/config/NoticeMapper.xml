@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="NoticeMapper">
 
 	<resultMap id="NoticeResultMap" type="NoticeDTO">
-		<id property="noticeNo" column="notice_no" />
-		<result property="memberNo" column="member_no" />
+		<id property="noticeNum" column="notice_num" />
+		<result property="memberNum" column="member_num" />
 		<result property="title" column="title" />
 		<result property="content" column="content" />
 		<result property="views" column="views" />
@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<resultMap id="NoticeDetailsResultMap" type="NoticeDetailsDTO">
-		<id property="noticeNo" column="notice_no" />
-		<result property="memberNo" column="member_no" />
+		<id property="noticeNum" column="notice_num" />
+		<result property="memberNum" column="member_num" />
 		<result property="memberName" column="member_name" />
 		<result property="title" column="title" />
 		<result property="content" column="content" />
@@ -24,14 +24,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<insert id="insert" parameterType="NoticeDTO">
-		<selectKey keyProperty="noticeNo" resultType="Long"
+		<selectKey keyProperty="noticeNum" resultType="Long"
 			order="BEFORE">
 			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 
-		INSERT INTO NOTICE (notice_no, member_no, title, content, views,
+		INSERT INTO NOTICE (notice_num, member_num, title, content, views,
 		created_at)
-		VALUES (#{noticeNo}, #{memberNo}, #{title}, #{content},
+		VALUES (#{noticeNum}, #{memberNum}, #{title}, #{content},
 		#{views}, #{createdAt})
 	</insert>
 
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultMap="NoticeResultMap">
 		SELECT *
 		FROM NOTICE
-		WHERE notice_no=#{noticeNo}
+		WHERE notice_num=#{noticeNum}
 	</select>
 
 
@@ -52,8 +52,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getNoticeDetailsByNo" parameterType="Long" resultMap="NoticeDetailsResultMap">
 		select
-			n.notice_no as notice_no,
-			n.member_no as meber_no,
+			n.notice_num as notice_num,
+			n.member_num as meber_no,
 			n.title as title,
 			n.content as content,
 			n.views as views,
@@ -61,14 +61,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			m.member_name as member_name
 		from notice n
 		left outer join member m
-		on n.member_no = m.member_num
-		where n.notice_no = #{noticeNo}
+		on n.member_num = m.member_num
+		where n.notice_num = #{noticeNum}
 	</select>
 	
 	<select id="getNoticeDetailsList" resultMap="NoticeDetailsResultMap">
 		select
-			n.notice_no as notice_no,
-			n.member_no as member_no,
+			n.notice_num as notice_num,
+			n.member_num as member_num,
 			n.title as title,
 			n.content as content,
 			n.views as views,
@@ -76,8 +76,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			m.member_name as member_name
 		from notice n
 		left outer join member m
-		on n.member_no = m.member_num
-		order by notice_no DESC
+		on n.member_num = m.member_num
+		order by notice_num DESC
 	</select>
 
 	<update id="update" parameterType="NoticeDTO">
@@ -85,20 +85,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET
 		title=#{title},
 		content=#{content}
-		WHERE notice_no=#{noticeNo}
+		WHERE notice_num=#{noticeNum}
 	</update>
 
 	<delete id="delete" parameterType="Long">
 		DELETE FROM NOTICE
 		WHERE
-		notice_no=#{noticeNo}
+		notice_num=#{noticeNum}
 	</delete>
 	
 	<update id="increaseViews" parameterType="Long">
 	   UPDATE NOTICE
 	   SET
 	       views=views+1
-	   WHERE notice_no=#{noticeNo}
+	   WHERE notice_num=#{noticeNum}
 	</update>
 
 </mapper>

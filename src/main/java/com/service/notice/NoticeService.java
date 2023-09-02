@@ -18,7 +18,7 @@ public class NoticeService {
 		this.dao = new NoticeDAO();
 	}
 	
-	public void createNotice(Long memberNo, NoticeDTO notice) {
+	public void createNotice(Long memberNum, NoticeDTO notice) {
 		SqlSession session = getSession();
 		try {
 			dao.insert(session, notice); 
@@ -34,10 +34,10 @@ public class NoticeService {
 		return MySqlSessionFactory.getSession();
 	}
 
-	public NoticeDTO getNoticeByNo(Long noticeNo) {
+	public NoticeDTO getNoticeByNo(Long noticeNum) {
 		SqlSession session = getSession();
 		try {
-			return dao.getNoticeByNo(session, noticeNo);
+			return dao.getNoticeByNo(session, noticeNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -60,11 +60,11 @@ public class NoticeService {
 		return Collections.emptyList();
 	}
 
-	public NoticeDetailsDTO getNoticeDetailsByNo(Long noticeNo) {
+	public NoticeDetailsDTO getNoticeDetailsByNo(Long noticeNum) {
 		SqlSession session = getSession();
 		try {
-			dao.increaseViews(session, noticeNo);
-			NoticeDetailsDTO notice = dao.getNoticeDetailsByNo(session, noticeNo);
+			dao.increaseViews(session, noticeNum);
+			NoticeDetailsDTO notice = dao.getNoticeDetailsByNo(session, noticeNum);
 			session.commit();
 			return notice;
 		} catch (Exception e) {
@@ -88,12 +88,12 @@ public class NoticeService {
 		return Collections.emptyList();
 	}
 	
-	public void updateNotice(Long noticeNo, Long memberNo, NoticeDTO updateDTO) {
+	public void updateNotice(Long noticeNum, Long memberNum, NoticeDTO updateDTO) {
 		SqlSession session = getSession();
 		try {
-			NoticeDTO notice = dao.getNoticeByNo(session, noticeNo);
+			NoticeDTO notice = dao.getNoticeByNo(session, noticeNum);
 	
-			if (!memberNo.equals(notice.getMemberNo())) {
+			if (!memberNum.equals(notice.getMemberNum())) {
 				return;
 			}
 	
@@ -109,17 +109,17 @@ public class NoticeService {
 		}
 	}
 
-	public void deleteNotice(Long noticeNo, Long memberNo) {
+	public void deleteNotice(Long noticeNum, Long memberNum) {
 		SqlSession session = getSession();
 		try {
 			
-			NoticeDTO notice = dao.getNoticeByNo(session, noticeNo);
+			NoticeDTO notice = dao.getNoticeByNo(session, noticeNum);
 	
-			if (!memberNo.equals(notice.getMemberNo())) {
+			if (!memberNum.equals(notice.getMemberNum())) {
 				return;
 			}
 	
-			dao.delete(session, noticeNo);
+			dao.delete(session, noticeNum);
 			session.commit();
 			
 		} catch (Exception e) {

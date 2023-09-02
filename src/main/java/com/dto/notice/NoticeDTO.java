@@ -3,8 +3,8 @@ package com.dto.notice;
 import java.util.Date;
 
 public class NoticeDTO {
-	private Long noticeNo;
-	private Long memberNo;
+	private Long noticeNum;
+	private Long memberNum;
 	private String title;
 	private String content;
 	private Integer views;
@@ -13,28 +13,28 @@ public class NoticeDTO {
 	public NoticeDTO() {
 	}
 
-	public NoticeDTO(Long memberNo, String title, String content) {
-		this.memberNo = memberNo;
+	public NoticeDTO(Long memberNum, String title, String content) {
+		this.memberNum = memberNum;
 		this.title = title;
 		this.content = content;
 		this.views = Integer.valueOf(0);
 		this.createdAt = new Date();
 	}
 
-	public Long getNoticeNo() {
-		return noticeNo;
+	public Long getNoticeNum() {
+		return noticeNum;
 	}
 
-	public void setNoticeNo(Long noticeNo) {
-		this.noticeNo = noticeNo;
+	public void setNoticeNum(Long noticeNum) {
+		this.noticeNum = noticeNum;
 	}
 
-	public Long getMemberNo() {
-		return memberNo;
+	public Long getMemberNum() {
+		return memberNum;
 	}
 
-	public void setMemberNo(Long memberNo) {
-		this.memberNo = memberNo;
+	public void setMemberNum(Long memberNum) {
+		this.memberNum = memberNum;
 	}
 
 	public String getTitle() {
@@ -67,12 +67,6 @@ public class NoticeDTO {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
-	}
-
-	@Override
-	public String toString() {
-		return "Notice [noticeNo=" + noticeNo + ", memberNo=" + memberNo + ", title=" + title + ", content=" + content
-				+ ", views=" + views + ", createdAt=" + createdAt + "]";
 	}
 
 }

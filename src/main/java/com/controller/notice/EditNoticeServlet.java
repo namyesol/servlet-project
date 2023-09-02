@@ -19,7 +19,7 @@ import com.service.notice.NoticeService;
 public class EditNoticeServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6645387813338971677L;
-	
+
 	private NoticeService noticeService;
 
 	public EditNoticeServlet() {
@@ -36,10 +36,9 @@ public class EditNoticeServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			String parameter = request.getParameter("noticeNo");
-			Long noticeNo = Long.parseLong(parameter);
+			Long noticeNum = Long.parseLong(request.getParameter("noticeNum"));
 
-			NoticeDTO notice = noticeService.getNoticeByNo(noticeNo);
+			NoticeDTO notice = noticeService.getNoticeByNo(noticeNum);
 
 			request.setAttribute("notice", notice);
 
@@ -58,10 +57,10 @@ public class EditNoticeServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Long memberNo = Long.valueOf(member.getMember_num());
+			Long memberNum = Long.valueOf(member.getMember_num());
 
-			String parameter = request.getParameter("noticeNo");
-			Long noticeNo = Long.parseLong(parameter);
+			String parameter = request.getParameter("noticeNum");
+			Long noticeNum = Long.parseLong(parameter);
 
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
@@ -69,11 +68,11 @@ public class EditNoticeServlet extends HttpServlet {
 			NoticeDTO updateDTO = new NoticeDTO();
 			updateDTO.setTitle(title);
 			updateDTO.setContent(content);
-			
-			noticeService.updateNotice(noticeNo, memberNo, updateDTO);
+
+			noticeService.updateNotice(noticeNum, memberNum, updateDTO);
 
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/NoticeDetailsServlet" + "?noticeNo=" + noticeNo);
+			response.sendRedirect(contextPath + "/NoticeDetailsServlet" + "?noticeNum=" + noticeNum);
 		}
 	}
 

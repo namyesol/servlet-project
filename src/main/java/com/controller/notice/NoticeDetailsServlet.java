@@ -36,9 +36,9 @@ public class NoticeDetailsServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			long noticeNo = Long.parseLong(request.getParameter("noticeNo"));
+			long noticeNum = Long.parseLong(request.getParameter("noticeNum"));
 
-			NoticeDetailsDTO notice = noticeService.getNoticeDetailsByNo(noticeNo);
+			NoticeDetailsDTO notice = noticeService.getNoticeDetailsByNo(noticeNum);
 
 			request.setAttribute("notice", notice);
 

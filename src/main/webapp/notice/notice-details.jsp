@@ -22,7 +22,7 @@
       		<article class="mt-3 mb-3 pb-3">
       			<h2 class="h2 mb-3">${notice.title}</h2>
       			<div class="d-flex gap-2">
-      				<p>글번호: ${notice.noticeNo}
+      				<p>글번호: ${notice.noticeNum}
 	      			<p>작성자: ${notice.memberName}</p>
 					<p>작성일: <fmt:formatDate value="${notice.createdAt}" pattern="M월d일 hh:mm"/></p>
 					<p>조회수: ${notice.views}</p>
@@ -30,11 +30,11 @@
       			<p class="text-break">${notice.content}</p>
       		</article>
     		<div class="btn-group me-2 w-100">
-				<c:url var="editNoticeUrl" value="/EditNoticeServlet?noticeNo=${notice.noticeNo}" />
+				<c:url var="editNoticeUrl" value="/EditNoticeServlet?noticeNum=${notice.noticeNum}" />
 				<a href="${editNoticeUrl}">
 					<button type="button" class="btn btn-outline-primary">수정</button>
 				</a>
-				<c:url var="deleteNoticeUrl" value="/DeleteNoticeServlet?noticeNo=${notice.noticeNo}"/>
+				<c:url var="deleteNoticeUrl" value="/DeleteNoticeServlet?noticeNum=${notice.noticeNum}"/>
 				<form action="${deleteNoticeUrl}" method="post">
 					<button type="submit" class="btn btn-outline-danger">삭제</button>
 				</form>

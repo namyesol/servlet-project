@@ -53,17 +53,17 @@ public class NewNoticeServlet extends HttpServlet {
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
 
-			Long memberNo = Long.valueOf(member.getMember_num());
+			Long memberNum = Long.valueOf(member.getMember_num());
 
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			
-			NoticeDTO notice = new NoticeDTO(memberNo, title, content);
 
-			noticeService.createNotice(memberNo, notice);
+			NoticeDTO notice = new NoticeDTO(memberNum, title, content);
+
+			noticeService.createNotice(memberNum, notice);
 
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/NoticeDetailsServlet" + "?noticeNo=" + notice.getNoticeNo());
+			response.sendRedirect(contextPath + "/NoticeDetailsServlet" + "?noticeNum=" + notice.getNoticeNum());
 		}
 	}
 
