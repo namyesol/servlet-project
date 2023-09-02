@@ -42,7 +42,7 @@
 			           </tr>
 			       </thead>
 			       <tbody>               
-		        	<c:forEach var="communityDetails" items="${communityDetailsList}">
+		        	<c:forEach var="communityDetails" items="${pageResponse.items}">
 		        		<c:url var="communityDetailsUrl" value="/CommunityDetailsServlet?comNo=${communityDetails.comNo}"/>
 			        	<tr>
 					        <th scope="row">
@@ -62,19 +62,54 @@
 		    <div class="d-flex justify-content-center">
 		    	<nav aria-label="Page navigation example">
 				  <ul class="pagination">
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
+				  	<c:url var="communityListUrl" value="/CommunityListServlet"/>
+				  	<c:choose>
+				  	<c:when test="${pageResponse.hasPrevious}">
+					    <li class="page-item">
+					      <a class="page-link" href="${communityListUrl}?page=${pageResponse.start-1}&size=${pageResponse.size}" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+				    </c:when>
+				    <c:otherwise>
+				    	<li class="page-item disabled">
+					      <a class="page-link" href="#" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+				    </c:otherwise>
+			    	</c:choose>
+			    	<c:forEach begin="${pageResponse.start}" end="${pageResponse.end}" step="1" varStatus="status">
+				    <c:choose>
+					    <c:when test="${pageResponse.page eq status.current}">
+					    <li class="page-item active">
+					    	<a class="page-link" href="${communityListUrl}?page=${status.current}&size=${pageResponse.size}">${status.current}</a>
+				    	</li>
+					    </c:when>
+					    <c:otherwise>
+   						<li class="page-item">
+					    	<a class="page-link" href="${communityListUrl}?page=${status.current}&size=${pageResponse.size}">${status.current}</a>
+				    	</li>
+					    </c:otherwise>
+				    </c:choose>					   
+				    </c:forEach>
+				    
+   				  	<c:choose>
+				  	<c:when test="${pageResponse.hasNext}">
+					    <li class="page-item">
+					      <a class="page-link" href="${communityListUrl}?page=${pageResponse.end+1}&size=${pageResponse.size}" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+				    </c:when>
+				    <c:otherwise>
+					    <li class="page-item disabled">
+					      <a class="page-link" href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+				    </c:otherwise>
+			    	</c:choose>
 				  </ul>
 				</nav>
 		    </div>

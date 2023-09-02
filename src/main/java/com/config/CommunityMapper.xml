@@ -79,21 +79,6 @@
 		WHERE c.com_no=#{comNo}
 	</select>
 
-	<select id="getCommunityDetailsList" resultMap="CommunityDetailsResultMap">
-		SELECT
-			c.com_no as com_no,
-			c.com_title as com_title,
-			c.com_content as com_content,
-			c.com_views as com_views,
-			c.com_created_at as com_created_at,
-			m.member_num as member_no,
-			m.member_name as member_name
-		FROM community c
-		INNER JOIN member m
-		ON c.member_no = m.member_num
-		ORDER BY com_no DESC
-	</select>
-
 	<update id="increaseViews" parameterType="Long">
 	   UPDATE COMMUNITY
 	   SET
@@ -101,8 +86,39 @@
 	   WHERE com_no=#{comNo}
 	</update>
 
-	<select id="count" resultType="Long">
+	<select id="count" resultType="java.lang.Integer">
 		SELECT COUNT(DISTINCT C.com_no)
 		FROM COMMUNITY C
+	</select>
+	
+	<sql id="PaginationUsingRownum"> 
+	<![CDATA[
+		SELECT *
+		FROM
+			(
+			SELECT ROWNUM rnum , subq.*
+			FROM 
+				(
+				SELECT
+					C.com_no as com_no,
+					C.com_title as com_title,
+					C.com_content as com_content,
+					C.com_views as com_views,
+					C.com_created_at as com_created_at,
+					M.member_num as member_no,
+					M.member_name as member_name
+				FROM community C
+				INNER JOIN member M
+				ON C.member_no = M.member_num
+				ORDER BY com_no DESC
+			) subq
+			WHERE ROWNUM <= ( #{page} * #{size} )
+		)
+		WHERE rnum >= ((#{page} - 1) * #{size}) + 1
+	]]>
+	</sql>
+	
+	<select id="getCommunityDetailsList" resultMap="CommunityDetailsResultMap">
+		<include refid="PaginationUsingRownum"/>
 	</select>
 </mapper>

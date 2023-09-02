@@ -4,7 +4,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.common.Page;
+import com.common.PageResponseDTO;
 import com.config.MySqlSessionFactory;
 import com.dao.community.CommunityDAO;
 import com.dao.community.ReplyDAO;
@@ -16,7 +20,8 @@ import com.dto.community.ReplyDTO;
 
 public class CommunityService {
 
-
+	private static final Logger log = LoggerFactory.getLogger(CommunityService.class);
+	
     private CommunityDAO communityDao;
     private ReplyDAO replyDao;
 
@@ -137,16 +142,19 @@ public class CommunityService {
     	return null;
     }
 
-    public List<CommunityDetailsDTO> getCommunityDetailsList() {
+    
+    public PageResponseDTO<CommunityDetailsDTO> getCommunityDetailsList(Page page) {
     	SqlSession session = getSession();
     	try {
-    		return communityDao.getCommunityDetailsList(session);
+    		int count = communityDao.count(session);
+    		List<CommunityDetailsDTO> communityDetailsList = communityDao.getCommunityDetailsList(session, page);
+    		return new PageResponseDTO<CommunityDetailsDTO>(page, communityDetailsList, count);
     	} catch (Exception e) {
     		e.printStackTrace();
     	} finally {
     		session.close();
     	}
-       
-       return Collections.emptyList();
+    	
+		return new PageResponseDTO<CommunityDetailsDTO>(page, Collections.emptyList(), 0);
     }
 }

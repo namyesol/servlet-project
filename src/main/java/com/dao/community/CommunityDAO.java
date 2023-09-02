@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.common.Page;
 import com.dto.community.CommunityDTO;
 import com.dto.community.CommunityDetailsDTO;
 
@@ -42,13 +43,12 @@ public class CommunityDAO {
 		return session.selectOne("CommunityMapper.getCommunityDetailsByNo", comNo);
 	}
 
-	public List<CommunityDetailsDTO> getCommunityDetailsList(SqlSession session) {
-		return session.selectList("CommunityMapper.getCommunityDetailsList");
+	public List<CommunityDetailsDTO> getCommunityDetailsList(SqlSession session, Page page) {
+		return session.selectList("CommunityMapper.getCommunityDetailsList", page);
 	}
 	
-	
-	public Long count(SqlSession session) {
+	public Integer count(SqlSession session) {
 		return session.selectOne("CommunityMapper.count");
 	}
-	
+
 }
