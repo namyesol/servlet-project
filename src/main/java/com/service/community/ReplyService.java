@@ -35,10 +35,10 @@ public class ReplyService {
 		return MySqlSessionFactory.getSession();
 	}
 
-    public List<ReplyDetailsDTO> getReplyDetailsListByComNo(Long comNo) {
+    public List<ReplyDetailsDTO> getReplyDetailsListByComNum(Long comNum) {
 		SqlSession session = getSession();
 		try {
-			return dao.getReplyDetailsListByComNo(session, comNo);
+			return dao.getReplyDetailsListByComNum(session, comNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -48,12 +48,12 @@ public class ReplyService {
     }
     
 
-	public void update(Long replyNo, Long memberNo, ReplyDTO updateDTO) {
+	public void update(Long replyNum, Long memberNum, ReplyDTO updateDTO) {
 		SqlSession session = getSession();
 		try {
-			ReplyDTO reply = dao.getReplyByNo(session, replyNo);
+			ReplyDTO reply = dao.getReplyByNum(session, replyNum);
 			
-			if (!memberNo.equals(reply.getMemberNo())) {
+			if (!memberNum.equals(reply.getMemberNum())) {
 				return;
 			}
 			
@@ -69,16 +69,16 @@ public class ReplyService {
 		
 	}
     
-    public void delete(Long replyNo, Long memberNo) {
+    public void delete(Long replyNum, Long memberNum) {
     	SqlSession session = getSession();
     	try {
-	    	ReplyDTO reply = dao.getReplyByNo(session, replyNo);
+	    	ReplyDTO reply = dao.getReplyByNum(session, replyNum);
 	    	
-	    	if (!memberNo.equals(reply.getMemberNo())) {
+	    	if (!memberNum.equals(reply.getMemberNum())) {
 	    		return;
 	    	}
 	    	
-	    	dao.delete(session, replyNo);
+	    	dao.delete(session, replyNum);
 			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

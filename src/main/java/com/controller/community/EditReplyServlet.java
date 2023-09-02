@@ -33,17 +33,17 @@ public class EditReplyServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Long replyNo = Long.parseLong(request.getParameter("replyNo"));
-			Long memberNo = Long.valueOf(member.getMember_num());
-			Long comNo = Long.parseLong(request.getParameter("comNo"));
+			Long replyNum = Long.parseLong(request.getParameter("replyNum"));
+			Long memberNum = Long.valueOf(member.getMember_num());
+			Long comNum = Long.parseLong(request.getParameter("comNum"));
 			String content = request.getParameter("content");
 			
 			ReplyDTO updateDTO = new ReplyDTO();
 			updateDTO.setContent(content);
-			replyService.update(replyNo, memberNo, updateDTO);
+			replyService.update(replyNum, memberNum, updateDTO);
 			
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNo=" + comNo);
+			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNum=" + comNum);
 		}
 	}
 	

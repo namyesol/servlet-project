@@ -32,14 +32,14 @@ public class DeleteReplyServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Long replyNo = Long.parseLong(request.getParameter("replyNo"));
-			Long comNo = Long.parseLong(request.getParameter("comNo"));
-			Long memNo = Long.valueOf(member.getMember_num());
+			Long replyNum = Long.parseLong(request.getParameter("replyNum"));
+			Long comNum = Long.parseLong(request.getParameter("comNum"));
+			Long memNum = Long.valueOf(member.getMember_num());
 			
-			replyService.delete(replyNo, memNo);
+			replyService.delete(replyNum, memNum);
 			
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNo=" + comNo);
+			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNum=" + comNum);
 		}
 	}
 }

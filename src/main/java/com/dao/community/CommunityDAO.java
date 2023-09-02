@@ -14,12 +14,12 @@ public class CommunityDAO {
 		session.insert("CommunityMapper.insert", community);
 	}
 
-	public CommunityDTO getCommunityByNo(SqlSession session, Long comNo) {
-		return session.selectOne("CommunityMapper.getCommunityByNo", comNo);
+	public CommunityDTO getCommunityByNum(SqlSession session, Long comNum) {
+		return session.selectOne("CommunityMapper.getCommunityByNum", comNum);
 	}
 
-	public List<CommunityDTO> getCommunityByMemNo(SqlSession session, Long memNo) {	
-		return session.selectOne("CommunityMapper.getCommunityByMemNo", memNo);
+	public List<CommunityDTO> getCommunityBymemberNum(SqlSession session, Long memberNum) {	
+		return session.selectOne("CommunityMapper.getCommunityByMemberNum", memberNum);
 	}
 
 	public List<CommunityDTO> getCommunityList(SqlSession session ) {
@@ -30,16 +30,16 @@ public class CommunityDAO {
 		session.update("CommunityMapper.update", communtiy);
 	}
 
-	public void delete(SqlSession session, Long comNo) {
-		session.delete("CommunityMapper.delete", comNo);
+	public void delete(SqlSession session, Long comNum) {
+		session.delete("CommunityMapper.delete", comNum);
 	}
 
-	public void increaseViews(SqlSession session, Long comNo) {
-		session.update("CommunityMapper.increaseViews", comNo);		
+	public void increaseViews(SqlSession session, Long comNum) {
+		session.update("CommunityMapper.increaseViews", comNum);		
 	}
 	
-	public CommunityDetailsDTO getCommunityDetailsByNo(SqlSession session, Long comNo) {
-		return session.selectOne("CommunityMapper.getCommunityDetailsByNo", comNo);
+	public CommunityDetailsDTO getCommunityDetailsByNum(SqlSession session, Long comNum) {
+		return session.selectOne("CommunityMapper.getCommunityDetailsByNum", comNum);
 	}
 
 	public List<CommunityDetailsDTO> getCommunityDetailsList(SqlSession session) {

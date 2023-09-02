@@ -32,10 +32,10 @@ public class DeleteCommunityServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Long comNo = Long.parseLong(request.getParameter("comNo"));
-			Long memNo = Long.valueOf(member.getMember_num());
+			Long comNum = Long.parseLong(request.getParameter("comNum"));
+			Long memNum = Long.valueOf(member.getMember_num());
 			
-			communityService.delete(comNo, memNo);
+			communityService.delete(comNum, memNum);
 			
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + "/CommunityListServlet");

@@ -13,23 +13,23 @@ public class ReplyDAO {
 		session.insert("ReplyMapper.insert", reply);
 	}
 
-	public ReplyDTO getReplyByNo(SqlSession session, Long replyNo) {
-		return session.selectOne("ReplyMapper.getReplyByNo", replyNo);
+	public ReplyDTO getReplyByNum(SqlSession session, Long replyNum) {
+		return session.selectOne("ReplyMapper.getReplyByNum", replyNum);
 	}
 
-	public List<ReplyDTO> getReplyListByComNo(SqlSession session, Long comNo) {
-		return session.selectList("ReplyMapper.getReplyListByComNo");
+	public List<ReplyDTO> getReplyListByComNum(SqlSession session, Long comNum) {
+		return session.selectList("ReplyMapper.getReplyListByComNum");
 	}
 
 	public void update(SqlSession session, ReplyDTO reply) {
 		session.update("ReplyMapper.update", reply);
 	}
 
-	public void delete(SqlSession session, Long replyNo) {
-		session.delete("ReplyMapper.delete", replyNo);
+	public void delete(SqlSession session, Long replyNum) {
+		session.delete("ReplyMapper.delete", replyNum);
 	}
 	
-	public List<ReplyDetailsDTO> getReplyDetailsListByComNo(SqlSession session, Long comNo) {
-		return session.selectList("ReplyMapper.getReplyDetailsListByComNo", comNo);
+	public List<ReplyDetailsDTO> getReplyDetailsListByComNum(SqlSession session, Long comNum) {
+		return session.selectList("ReplyMapper.getReplyDetailsListByComNum", comNum);
 	}
 }

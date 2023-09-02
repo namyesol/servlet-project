@@ -14,7 +14,7 @@ public class NoticeDAO {
 	}
 
 	public NoticeDTO getNoticeByNo(SqlSession session, Long noticeNum) {
-		return session.selectOne("NoticeMapper.getNoticeByNo", noticeNum);
+		return session.selectOne("NoticeMapper.getNoticeByNum", noticeNum);
 	}
 
 	public List<NoticeDTO> getNotices(SqlSession session) {
@@ -30,7 +30,7 @@ public class NoticeDAO {
 	}
 
 	public NoticeDetailsDTO getNoticeDetailsByNo(SqlSession session, Long noticeNum) {
-		return session.selectOne("NoticeMapper.getNoticeDetailsByNo", noticeNum);
+		return session.selectOne("NoticeMapper.getNoticeDetailsByNum", noticeNum);
 	}
 
 	public List<NoticeDetailsDTO> getNoticeDetailsList(SqlSession session) {

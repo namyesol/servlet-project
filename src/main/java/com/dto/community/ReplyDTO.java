@@ -4,44 +4,53 @@ import java.util.Date;
 
 public class ReplyDTO {
 
-    private Long replyNo;
-    private Long memberNo;
-    private Long comNo;
+    private Long replyNum;
+    private Long memberNum;
+    private Long comNum;
     private String content;
     private Date createdAt;
 
     public ReplyDTO() {
     }
 
-    public ReplyDTO(Long memberNo, Long comNo, String content) {
-        this.memberNo = memberNo;
-        this.comNo = comNo;
+    public ReplyDTO(Long memberNum, Long comNum, String content) {
+        this.memberNum = memberNum;
+        this.comNum = comNum;
         this.content = content;
         this.createdAt = new Date();
     }
 
-	public Long getReplyNo() {
-		return replyNo;
+	public ReplyDTO(Long replyNum, Long memberNum, Long comNum, String content, Date createdAt) {
+		super();
+		this.replyNum = replyNum;
+		this.memberNum = memberNum;
+		this.comNum = comNum;
+		this.content = content;
+		this.createdAt = createdAt;
 	}
 
-	public void setReplyNo(Long replyNo) {
-		this.replyNo = replyNo;
+	public Long getReplyNum() {
+		return replyNum;
 	}
 
-	public Long getMemberNo() {
-		return memberNo;
+	public void setReplyNum(Long replyNum) {
+		this.replyNum = replyNum;
 	}
 
-	public void setMemberNo(Long memberNo) {
-		this.memberNo = memberNo;
+	public Long getMemberNum() {
+		return memberNum;
 	}
 
-	public Long getComNo() {
-		return comNo;
+	public void setMemberNum(Long memberNum) {
+		this.memberNum = memberNum;
 	}
 
-	public void setComNo(Long comNo) {
-		this.comNo = comNo;
+	public Long getComNum() {
+		return comNum;
+	}
+
+	public void setComNum(Long comNum) {
+		this.comNum = comNum;
 	}
 
 	public String getContent() {
@@ -62,9 +71,10 @@ public class ReplyDTO {
 
 	@Override
 	public String toString() {
-		return "ReplyDTO [replyNo=" + replyNo + ", memberNo=" + memberNo + ", comNo=" + comNo + ", content=" + content
-				+ ", createdAt=" + createdAt + "]";
+		return "ReplyDTO [replyNum=" + replyNum + ", memberNum=" + memberNum + ", comNum=" + comNum + ", content="
+				+ content + ", createdAt=" + createdAt + "]";
 	}
 
+    
 	
 }

@@ -22,7 +22,7 @@
       		<article class="mt-3 mb-3 pb-3">
       			<h2 class="h2 mb-3">${communityDetails.title}</h2>
       			<div class="d-flex gap-2">
-      				<p>글번호: ${communityDetails.comNo}
+      				<p>글번호: ${communityDetails.comNum}
 	      			<p>작성자: ${communityDetails.memberName}</p>
 					<p>작성일: <fmt:formatDate value="${communityDetails.createdAt}" pattern="M월d일 hh:mm"/></p>
 					<p>조회수: ${communityDetails.views}</p>
@@ -30,11 +30,11 @@
       			<p class="text-break">${communityDetails.content}</p>
       		</article>
     		<div class="btn-group me-2 w-100">
-				<c:url var="editCommunityUrl" value="/EditCommunityServlet?comNo=${communityDetails.comNo}" />
+				<c:url var="editCommunityUrl" value="/EditCommunityServlet?comNum=${communityDetails.comNum}" />
 				<a href="${editCommunityUrl}">
 					<button type="button" class="btn btn-outline-primary">수정</button>
 				</a>
-				<c:url var="deleteCommunityUrl" value="/DeleteCommunityServlet?comNo=${communityDetails.comNo}"/>
+				<c:url var="deleteCommunityUrl" value="/DeleteCommunityServlet?comNum=${communityDetails.comNum}"/>
 				<form action="${deleteCommunityUrl}" method="post">
 					<button type="submit" class="btn btn-outline-danger">삭제</button>
 				</form>
@@ -44,7 +44,7 @@
 				</a>
 			</div>
 			<section class="mt-3 mb-3">
-      			<c:url var="newReplyActionUrl" value="/NewReplyServlet?comNo=${communityDetails.comNo}"/>
+      			<c:url var="newReplyActionUrl" value="/NewReplyServlet?comNum=${communityDetails.comNum}"/>
 				<form action="${newReplyActionUrl}" method="post">
 					<div class="mb-3">
 						<label for="content" class="form-label">댓글</label>
@@ -57,7 +57,7 @@
 			</section>
 			<section>
             	<c:forEach var="replyDetails" items="${replyDetailsList}">
-            	<article class="mt-3 mb-3 pb-3 border-bottom" data-reply-no="${replyDetails.replyNo}">
+            	<article class="mt-3 mb-3 pb-3 border-bottom" data-reply-num="${replyDetails.replyNum}">
 	        		<div class="d-flex gap-2 align-items-center">
 		      			<p class="fw-bold">${replyDetails.memberName}</p>
 						<p class="text-secondary"><fmt:formatDate value="${replyDetails.createdAt}" pattern="MM/dd h:m"/></p>
@@ -65,14 +65,14 @@
 	      			<p class="text-break">${replyDetails.content}</p>
 	      			<div class="btn-group gap-2">
       					<button class="toggle-button btn text-secondary p-0 m-0">편집</button>
-	      				<c:url var="deleteReplyUrl" value="/DeleteReplyServlet?replyNo=${replyDetails.replyNo}&comNo=${communityDetails.comNo}"/>
+	      				<c:url var="deleteReplyUrl" value="/DeleteReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}"/>
 		      			<form action="${deleteReplyUrl}" method="post">
 	      					<button class="btn text-secondary p-0 m-0">삭제</button>
 	      				</form>
 	      			</div>
             	</article>
-            	<article class="mt-3 mb-3 pb-3 border-bottom d-none" data-reply-no="${replyDetails.replyNo}">
-            		<c:url var="editReplyUrl" value="/EditReplyServlet?replyNo=${replyDetails.replyNo}&comNo=${communityDetails.comNo}"/>
+            	<article class="mt-3 mb-3 pb-3 border-bottom d-none" data-reply-num="${replyDetails.replyNum}">
+            		<c:url var="editReplyUrl" value="/EditReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}"/>
             		<form action="${editReplyUrl}" method="post">
 	        		<div class="d-flex gap-2 align-items-center">
 		      			<p class="fw-bold">${replyDetails.memberName}</p>
@@ -91,13 +91,16 @@
    	</div>
 </div>
 <script>
+	console.log('open');
 	const toggle = (event) => {
+		console.log("event check!")
 		if (event.target.tagName.toLowerCase() === 'button') {
+
 			if (event.target.classList.contains('toggle-button')) {
 				event.preventDefault();
 				let articles = document.getElementsByTagName('article');
 				for (let article of articles) {
-					if (article.dataset.replyNo === event.currentTarget.dataset.replyNo) {
+					if (article.dataset.replyNum === event.currentTarget.dataset.replyNum) {
 						article.classList.toggle('d-none');
 					}
 				}
@@ -108,7 +111,7 @@
 	let articles = document.getElementsByTagName('article');
 	
 	for (let article of articles) {
-		if (article.dataset.replyNo) {
+		if (article.dataset.replyNum) {
 			article.addEventListener('click', toggle);
 		}
 	}

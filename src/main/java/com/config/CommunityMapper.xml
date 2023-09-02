@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CommunityMapper">
 	<resultMap id="CommunityResultMap" type="CommunityDTO">
-		<id property="comNo" column="com_no" />
-		<result property="memberNo" column="member_no" />
+		<id property="comNum" column="com_num" />
+		<result property="memberNum" column="member_num" />
 		<result property="title" column="com_title" />
 		<result property="content" column="com_content" />
 		<result property="views" column="com_views" />
@@ -12,8 +12,8 @@
 
 	<resultMap id="CommunityDetailsResultMap"
 		type="CommunityDetailsDTO">
-		<id property="comNo" column="com_no" />
-		<result property="memberNo" column="member_no" />
+		<id property="comNum" column="com_num" />
+		<result property="memberNum" column="member_num" />
 		<result property="memberName" column="member_name" />
 		<result property="title" column="com_title" />
 		<result property="content" column="com_content" />
@@ -22,32 +22,32 @@
 	</resultMap>
 
 	<insert id="insert" parameterType="CommunityDTO">
-		<selectKey keyProperty="comNo" resultType="Long" order="BEFORE">
+		<selectKey keyProperty="comNum" resultType="Long" order="BEFORE">
 			SELECT COMMUNITY_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 
 		INSERT INTO COMMUNITY
-		(com_no, member_no, com_title, com_content, com_views, com_created_at)
+		(com_num, member_num, com_title, com_content, com_views, com_created_at)
 		VALUES
-		(#{comNo}, #{memberNo}, #{title}, #{content}, #{views}, #{createdAt})
+		(#{comNum}, #{memberNum}, #{title}, #{content}, #{views}, #{createdAt})
 	</insert>
 
-	<select id="getCommunityByNo" parameterType="Long"
+	<select id="getCommunityByNum" parameterType="Long"
 		resultMap="CommunityResultMap">
-		SELECT com_no, member_no, com_title, com_content, com_views, com_created_at
+		SELECT com_num, member_num, com_title, com_content, com_views, com_created_at
 		FROM COMMUNITY
-		where com_no=#{comNo}
+		where com_num=#{comNum}
 	</select>
 
-	<select id="getCommunityByMemNo" parameterType="Long"
+	<select id="getCommunityByMemberNum" parameterType="Long"
 		resultMap="CommunityResultMap">
-		SELECT com_no, member_no, com_title, com_content, com_views, com_created_at
+		SELECT com_num, member_num, com_title, com_content, com_views, com_created_at
 		FROM COMMUNITY
-		where member_no=#{memberNo}
+		where member_num=#{memberNum}
 	</select>
 
 	<select id="getCommunityList" resultMap="CommunityResultMap">
-		SELECT com_no, member_no, com_title, com_content, com_views, com_created_at
+		SELECT com_num, member_num, com_title, com_content, com_views, com_created_at
 		FROM COMMUNITY
 	</select>
 
@@ -56,53 +56,53 @@
 		SET
 			com_title = #{title},
 			com_content = #{content}
-		WHERE com_no=#{comNo}
+		WHERE com_num=#{comNum}
 	</update>
 
 	<delete id="delete" parameterType="Long">
-		DELETE FROM COMMUNITY WHERE com_no=#{comNo}
+		DELETE FROM COMMUNITY WHERE com_num=#{comNum}
 	</delete>
 
-	<select id="getCommunityDetailsByNo" parameterType="Long"
+	<select id="getCommunityDetailsByNum" parameterType="Long"
 		resultMap="CommunityDetailsResultMap">
 		SELECT
-			c.com_no as com_no,
+			c.com_num as com_num,
 			c.com_title as com_title,
 			c.com_content as com_content,
 			c.com_views as com_views,
 			c.com_created_at as com_created_at,
-			m.member_num as member_no,
+			m.member_num as member_num,
 			m.member_name as member_name
 		FROM community c
 		INNER JOIN member m
-		ON c.member_no = m.member_num
-		WHERE c.com_no=#{comNo}
+		ON c.member_num = m.member_num
+		WHERE c.com_num=#{comNum}
 	</select>
 
 	<select id="getCommunityDetailsList" resultMap="CommunityDetailsResultMap">
 		SELECT
-			c.com_no as com_no,
+			c.com_num as com_num,
 			c.com_title as com_title,
 			c.com_content as com_content,
 			c.com_views as com_views,
 			c.com_created_at as com_created_at,
-			m.member_num as member_no,
+			m.member_num as member_num,
 			m.member_name as member_name
 		FROM community c
 		INNER JOIN member m
-		ON c.member_no = m.member_num
-		ORDER BY com_no DESC
+		ON c.member_num = m.member_num
+		ORDER BY com_num DESC
 	</select>
 
 	<update id="increaseViews" parameterType="Long">
 	   UPDATE COMMUNITY
 	   SET
 	       com_views=com_views+1
-	   WHERE com_no=#{comNo}
+	   WHERE com_num=#{comNum}
 	</update>
 
 	<select id="count" resultType="Long">
-		SELECT COUNT(DISTINCT C.com_no)
+		SELECT COUNT(DISTINCT C.com_num)
 		FROM COMMUNITY C
 	</select>
 </mapper>

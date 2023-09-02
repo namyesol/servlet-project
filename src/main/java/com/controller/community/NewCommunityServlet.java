@@ -48,15 +48,15 @@ public class NewCommunityServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Long memberNo = Long.valueOf(member.getMember_num());
+			Long memberNum = Long.valueOf(member.getMember_num());
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			CommunityDTO community = new CommunityDTO(memberNo, title, content);
+			CommunityDTO community = new CommunityDTO(memberNum, title, content);
 			
 			communtiyService.save(community);
 			
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityDetailsServlet"+ "?comNo=" + community.getComNo());
+			response.sendRedirect(contextPath + "/CommunityDetailsServlet"+ "?comNum=" + community.getComNum());
 		}
 	}
 
