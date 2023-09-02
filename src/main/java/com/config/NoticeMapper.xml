@@ -64,19 +64,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where n.notice_num = #{noticeNum}
 	</select>
 	
+	<select id="countNotice" resultType="java.lang.Integer">
+		SELECT COUNT(DISTINCT notice_num)
+		FROM notice
+	</select>
+	
 	<select id="getNoticeDetailsList" resultMap="NoticeDetailsResultMap">
-		select
-			n.notice_num as notice_num,
-			n.member_num as member_num,
-			n.title as title,
-			n.content as content,
-			n.views as views,
-			n.created_at as created_at,
-			m.member_name as member_name
-		from notice n
-		left outer join member m
-		on n.member_num = m.member_num
-		order by notice_num DESC
+	<![CDATA[
+	SELECT *
+	FROM
+	(	SELECT ROWNUM rnum, subq.*
+		FROM (
+			select
+				n.notice_num as notice_num,
+				n.member_num as member_num,
+				n.title as title,
+				n.content as content,
+				n.views as views,
+				n.created_at as created_at,
+				m.member_name as member_name
+			from notice n
+			left outer join member m
+			on n.member_num = m.member_num
+			order by notice_num DESC
+			) subq
+		WHERE ROWNUM <= (#{page} * #{size})
+	)
+	WHERE rnum >= ((#{page} - 1) * #{size}) + 1
+	]]>
 	</select>
 
 	<update id="update" parameterType="NoticeDTO">

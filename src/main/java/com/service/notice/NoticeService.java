@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.common.Page;
+import com.common.PageResponseDTO;
 import com.config.MySqlSessionFactory;
 import com.dao.notice.NoticeDAO;
 import com.dto.notice.NoticeDTO;
@@ -76,16 +78,18 @@ public class NoticeService {
 		return null;
 	}
 
-	public List<NoticeDetailsDTO> getNoticeDetailsList() {
+	public PageResponseDTO<NoticeDetailsDTO> getNoticeDetailsList(Page page) {
 		SqlSession session = getSession();
 		try {
-			return dao.getNoticeDetailsList(session);
+			int count= dao.countNotice(session);
+			List<NoticeDetailsDTO> noticeDetailsList = dao.getNoticeDetailsList(session, page);
+			return new PageResponseDTO<NoticeDetailsDTO>(page, noticeDetailsList, count);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
-		return Collections.emptyList();
+		return new PageResponseDTO<NoticeDetailsDTO>(page, Collections.emptyList(), 0);
 	}
 	
 	public void updateNotice(Long noticeNum, Long memberNum, NoticeDTO updateDTO) {

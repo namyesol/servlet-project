@@ -58,8 +58,6 @@ public class CommunityListServlet extends HttpServlet {
 		int pageNumber = pageParam == null ? Page.START_PAGE_OFFSET : Integer.parseInt(pageParam);
 		int size = sizeParam == null ? Page.DEFAULT_PAGE_SIZE : Integer.parseInt(sizeParam);
 		
-		log.debug("pageParam=[{}], sizeparam=[{}]", pageParam, sizeParam);
-		
 		return new Page(pageNumber, size);
 	}
 	
