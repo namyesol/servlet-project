@@ -9,3 +9,4 @@
 - [https://stackoverflow.com/questions/241622/paging-with-oracle](https://stackoverflow.com/questions/241622/paging-with-oracle)
 - [https://blogs.oracle.com/connect/post/on-top-n-and-pagination-queries](https://blogs.oracle.com/connect/post/on-top-n-and-pagination-queries)
 - [https://weblogs.asp.net/fbouma/api-s-and-production-code-shouldn-t-be-designed-by-scientists](https://weblogs.asp.net/fbouma/api-s-and-production-code-shouldn-t-be-designed-by-scientists)
+- [https://mycodearchive.tistory.com/m/198](https://mycodearchive.tistory.com/m/198)
