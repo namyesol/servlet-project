@@ -3,15 +3,17 @@ package com.dto.community;
 import java.util.Date;
 
 public class ReplyDetailsDTO {
-    private Long replyNum;
-    private Long memberNum;
-    private String memberName;
-    private Long comNum;
-    private String content;
-    private Date createdAt;
+	private Long replyNum;
+	private Long memberNum;
+	private String memberName;
+	private Long comNum;
+	private Long parentReplyNum;
+	private String content;
+	private Date createdAt;
+	private Integer level;
 
-    public ReplyDetailsDTO() {
-    }
+	public ReplyDetailsDTO() {
+	}
 
 	public Long getReplyNum() {
 		return replyNum;
@@ -45,6 +47,14 @@ public class ReplyDetailsDTO {
 		this.comNum = comNum;
 	}
 
+	public Long getParentReplyNum() {
+		return parentReplyNum;
+	}
+
+	public void setParentReplyNum(Long parentReplyNum) {
+		this.parentReplyNum = parentReplyNum;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -61,6 +71,20 @@ public class ReplyDetailsDTO {
 		this.createdAt = createdAt;
 	}
 
+	public Integer getLevel() {
+		return level;
+	}
 
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
 
+	@Override
+	public String toString() {
+		return "ReplyDetailsDTO [replyNum=" + replyNum + ", memberNum=" + memberNum + ", memberName=" + memberName
+				+ ", comNum=" + comNum + ", parentReplyNum=" + parentReplyNum + ", content=" + content + ", createdAt="
+				+ createdAt + ", level=" + level + "]";
+	}
+
+	
 }
