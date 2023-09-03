@@ -5,27 +5,29 @@
 <head>
 <meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
+<div class="main-section"><!-- 사이드바스타일 설정을위해서 class이름지정 -->
 
 	<!-- main.jsp를 클릭했을 때 보이는 화면 -->
-	<ul>
-		<li><a class="home" href="#"> Group</a><li>
-		<li><a class="home2" href="#">Ware</a><li>
-		<li><a href="MainServlet">홈</a></li>
-		<li><a href="#">마이 페이지</a></li>
-		<li><a href="#">근태 관리</a></li>
-		<li><a href="#">조직도</a></li>
-		<li><a href="NoticeListServlet">공지사항</a></li>
-		<li><a href="CommunityListServlet">게시판</a></li>
-		<li><a href="FileBoard">자료함</a></li>
-		<li><a href="DraftList">전자결재</a></li>
-		<li><a href="MeetingRoom">회의실 예약</a></li>
-		<li><a href="#">채팅</a></li>
-		<li><a href="#">메일 쓰기</a></li>
+	<ul class="main-ul">
+		<li class="group"> Group</li>
+		<li class="ware">Ware</li>
+		<li><a class="main-li" href="MainServlet" >홈</a></li>
+		<li><a class="main-li" href="MypageUIServlet">마이 페이지</a></li>
+		<li><a class="main-li" href="#">근태 관리</a></li>
+		<li><a class="main-li" href="OrganUIServlet">조직도</a></li>
+		<li><a class="main-li" href="#">공지사항</a></li>
+		<li><a class="main-li" href="#">게시판</a></li>
+		<li><a class="main-li" href="FileBoard">자료함</a></li>
+		<li><a class="main-li" href="DraftList">전자결재</a></li>
+		<li><a class="main-li" href="MeetingRoom">회의실 예약</a></li>
+		<li><a class="main-li" href="#">채팅</a></li>
+		<li><a class="main-li" href="#">메일 쓰기</a></li>
 	</ul>
-
+	
+</div>
 
 </body>
 </html>

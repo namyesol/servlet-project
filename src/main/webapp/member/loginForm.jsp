@@ -82,30 +82,18 @@
 	}
 </script>
 <form action="LoginServlet" method="get">
-		<table>
-			<tr>
-				<th>회사로고 이미지</th>
-			</tr>
-			<tr>
-				<td><input type="text" name="member_num" placeholder="사원번호" style="text-align: center">
-				</td>
-				<td>
-					<!-- 입력칸과 로그인 버튼 사이 한칸 띄우기 -->
-				</td>
-				<td rowspan="2"><input type="submit" value="로그인"
-					style="height: 50px; width: 50px;"></td>
-			</tr>
-			<tr>
-				<!-- type : password -->
-				<td><input type="password" name="password" placeholder="비밀번호" style="text-align: center">
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" id="saveCheck"/> 로그인 상태 유지 
-				</td>
-			</tr>
-			<tr>
-				<td><a href="passwordSearch.jsp"> 비밀번호 찾기 </a></td>
-			</tr>
-		</table>
+				<h3>회사로고 이미지</h3>
+				<div class="fieldset">
+					<fieldset>
+						<input type="text" name="member_num" placeholder="사원번호" style="text-align: center"><br>
+						<input type="password" name="password" placeholder="비밀번호" style="text-align: center"><br>
+						<button class="login_btn" onclick="submit">로그인</button><br>
+						<input type="checkbox" id="saveCheck"/> 로그인 상태 유지 
+					</fieldset>
+				</div>
+				<a href="passwordSearch.jsp"> 비밀번호 찾기 </a>
 	</form>
+
+	
+	
+	

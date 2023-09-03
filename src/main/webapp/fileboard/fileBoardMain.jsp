@@ -2,9 +2,9 @@
 	pageEncoding="EUC-KR"%>
 <%@page import="com.dto.FileBoardDTO"%>
 <%@page import="java.util.List"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%List<FileBoardDTO> list = (List<FileBoardDTO>) request.getAttribute("fileContentList");%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,14 +24,13 @@
 			<th>제목</th>
 			<th>조회수</th>
 		</tr>
-		<tr>
-        <c:forEach var="file" items="${list}" varStatus="loop">
-        <tr class="contents">
+      <c:forEach var="file" items="${fileContentList}" varStatus="loop">
+        <tr>
                 <td>${file.file_board_no}</td>
-            <td>${file.file_board_date}</td>
-               <td><a href="FileBoardPost?file_board_no=${file.file_board_no}"></a>${file.file_board_title}</td>
+            	<td>${file.file_board_date}</td>
+               <td><a href="FileBoardPost?file_board_no=${file.file_board_no}">${file.file_board_title}</a></td>
                <td>${file_board_view}</td>
-               <td><button data-target="modal${loop.index}">상세보기</button></td>
+               
 		</tr>
 		</c:forEach>
 	</table>

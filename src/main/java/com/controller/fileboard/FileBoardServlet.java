@@ -16,8 +16,6 @@ import com.service.MemberService;
 @WebServlet("/FileBoard")
 public class FileBoardServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 5545793373577888320L;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dis = request.getRequestDispatcher("fileBoard.jsp");
 		dis.forward(request, response);

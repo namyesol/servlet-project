@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
 .table-container {
-	width: 100%;
-	max-width: 800px;
 	margin: 0 auto;
 	padding: 20px;
-	margin-top: 100px;
+	position: absolute;
+	left: 400px;
+	width: 55%;
   }
   
   table {
@@ -16,15 +16,15 @@
   
   th, td {
 	padding: 10px;
-	text-align: center; /* 텍스트 가운데 정렬 */
+	text-align: center;
 	border-bottom: 1px solid #e0e0e0;
 	
   }
   
   th {
-	background-color: #9db8e0; /* 제목 셀의 배경색 */
-	color: #4f5c6d; /* 제목 셀의 텍스트 색상 */
-	width: 20%; /* 제목 셀의 너비 조정 */
+	background-color: #d3c9b5;
+	color: #5d5442;
+	width: 20%;
   }
   
   td {
@@ -34,8 +34,8 @@
   td button {
 	background-color: transparent; /* 버튼 배경색 투명하게 설정 */
 	color: 222A35;
-	border: 1px solid #ccc; /* 테두리 회색으로 설정 */
-	border-radius: 5px; /* 모서리를 둥글게 */
+	border: 1px solid #ccc;
+	border-radius: 5px;
 	padding: 5px 10px;
 	cursor: pointer;
   }
@@ -45,12 +45,11 @@
   }
   
   td button:hover {
-	background-color: rgba(196, 216, 245, 0.8); /* 투명한 파란색 배경색 */
-	border-color: #7f8c8d; /* 테두리 색상 변경 */
+	background-color: rgba(234, 225, 206, 0.7);
+	border-color: #7f7157;
   }
 
   tr:last-child td {
 	border-bottom: 1px solid #D6DCE5;
   }
-
 

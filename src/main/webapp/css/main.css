@@ -5,18 +5,38 @@ html, body {
 	height: 100%;
 }
 
-ul {
+.main-ul {
 	list-style-type: none;
 	position: fixed;
 	padding: 5px;
 	margin: 0px;
 	width: 140px;
 	background: #d3c9b5;
-/* 	background: #b2bec3; */
 	height: 100%;
 }
 
-li a {
+.main-ul li.group {
+	margin-top: 10px;
+	margin-left : 10px;
+	font-size: 25px;
+	color: #fff;
+	letter-spacing: 2px;
+	text-align: left;
+	font-weight: bold;
+}
+
+.main-ul li.ware {
+	margin-top: 5px;
+	margin-right : 10px;
+	margin-bottom: 20px; 
+	font-size: 25px;
+	color: #fff;
+	letter-spacing: 2px;
+	text-align: right;
+	font-weight: bold;
+}
+
+li a.main-li {
 	text-decoration: none;
 	padding: 10px;
 	display: block;
@@ -24,27 +44,10 @@ li a {
 	font-weight: bold;
 }
 
-li a:hover {
-	color: rgb(64, 64, 64);
+
+.main-ul li:hover a {
+  	color: rgb(64, 64, 64);
 }
-
-li a.home {
-  margin-top: 10px;	
-  font-size: 25px;
-  color: #fff;
-  letter-spacing: 2px;
-}
-
-li a.home2 {
-  margin-top: -25px;
-  margin-bottom: 20px;
-  font-size: 25px;
-  color: #fff;
-  letter-spacing: 2px;
-  text-align: right;
-}
-
-
 
 
 

@@ -27,7 +27,7 @@ public class MeetingRoomReserve extends HttpServlet {
 		String nextPage = null;
 		
 		if(dto != null) {//로그인성공시 실행
-			nextPage = "app_meeting.jsp";
+			nextPage = "meeting_meetingList.jsp";
 			int memberNum = dto.getMember_num();//dto에서 memeber_num가져오기
 			//예약버튼 클릭 = 1
 			String reservation =request.getParameter("buttonValue");

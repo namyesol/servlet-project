@@ -4,10 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>전자결재 소메뉴</title>
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/appMenu.css">
-	<link rel="stylesheet" type="text/css" href="css/appDraftList.css">
+	<title>임시저장함</title>
 </head>
 <body>
 	

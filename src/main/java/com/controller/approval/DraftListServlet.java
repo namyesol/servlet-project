@@ -16,8 +16,6 @@ import com.service.MemberService;
 @WebServlet("/DraftList")
 public class DraftListServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 4282475338623877610L;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dis = request.getRequestDispatcher("app_draftList.jsp");
 		dis.forward(request, response);

@@ -4,16 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/meetingRoom.css">
-<title>Insert title here</title>
+<title>회의실 예약</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <body>
-<div id="contents">
+<div id="s-container">
 				<form action="MeetingRoomReserve" method="get" id="roomForm">
                 <div id="divLeft">
 					<div id="rDiv">
@@ -42,7 +40,7 @@
 								</select>
 						</div>
 									<div class="guide">
-											<p>*회의실 이용안내 및 예약 방법*</p>	
+											<p>* 회의실 이용안내 및 예약 방법 *</p>	
 											<div>
 												<ul>
 													<li>원하시는 날짜, 회의실, 시간을 선택해주세요.</li>

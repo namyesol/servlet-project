@@ -16,30 +16,26 @@ import com.service.FileBoardService;
 
 @WebServlet("/FileBoardMain") // 시작 지점
 public class FileBoardMainServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 5805910707171641791L;
-
-	// 게시글 목록 불러오기
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String file_path = request.getParameter("file_path"); // 게시글번호
+	private static final long serialVersionUID = 1L;
+       	//게시글 목록 불러오기
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String file_path = request.getParameter("file_path");	//게시글번호
 		System.out.println(">>> file_path " + file_path);
-
-		if (file_path == null) {
+		
+		if(file_path==null) {
 			file_path = "top";
 			System.out.println(">>> reset top");
 		}
-
+		
 		FileBoardService service = new FileBoardService();
 		List<FileBoardDTO> list = service.fileContentList(file_path);
 		request.setAttribute("fileContentList", list);
-
+		System.out.println(list);
 		RequestDispatcher dis = request.getRequestDispatcher("fileboard/fileBoardMain.jsp");
 		dis.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

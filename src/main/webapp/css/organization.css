@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+
+.group-section {
+	margin-left: 250px;
+	display: flex;
+	flex-direction: column;
+	padding: 30px;
+	width: 1200px;
+	height: 631px;
+}
+
+.group-section p {
+	display: table;
+	width: 318px;
+	margin: 0 auto 60px;
+	background: #fff;
+}
+
+.group-section b {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	height: 68px;
+	border: 1px solid #d3d3d3;
+}
+
+.group-section em {
+	display: block;
+	font-weight: normal;
+}
+
+.group-section span {
+	position: absolute;
+	right: 0;
+	top: 260px;
+	display: table;
+	width: 318px;
+	height: 68px;
+	background: #ededed;
+	border: 1px solid #d3d3d3;
+}
+
+.group-section ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.group-depth3 {
+	display: flex;
+	justify-content: center; /* 중간 정렬 추가 */
+	list-style-type: none;
+	margin: 10px 0 0;
+	padding: 0;
+}
+
+.group-section .group-depth3>li {
+	position: relative;
+	list-style-type: none;
+	margin:  15px; /*  간격 설정 */
+}
+
+.group-section .group-depth3 strong {
+	display: block;
+	width: 318px;
+	height: 48px;
+	line-height: 48px;
+	border: 1px solid #d3d3d3;
+	background: #ededed;
+	text-align: center;
+}
+
+.group-section .group-depth3 div {
+	padding: 18px 0 0;
+	width: 318px;
+	height: 128px;
+	border: 1px solid #d3d3d3;
+	border-top: none;
+	background: #fff;
+	line-height: 26px;
+	text-align: center;
+}

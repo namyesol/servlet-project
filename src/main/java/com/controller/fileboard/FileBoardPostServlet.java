@@ -18,8 +18,7 @@ import com.service.FileBoardService;
  */
 @WebServlet("/FileBoardPost")
 public class FileBoardPostServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 2258097983086180154L;
+	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -28,18 +27,18 @@ public class FileBoardPostServlet extends HttpServlet {
 
 		if (file_board_no == 0) {
 			try {
-				file_board_no = 0;
-				System.out.println(">>> number 000");
-			} catch (Exception e) {
+			file_board_no = 0;
+			System.out.println(">>> number 000");
+			}catch(Exception e){
 				e.printStackTrace();
 				System.out.println(" >>> number error");
-
+				
 			}
 		}
 		FileBoardService service = new FileBoardService();
 		FileBoardDTO dto = service.fileContentOne(file_board_no);
 		request.setAttribute("FileBoardPost", dto);
-		System.out.println(">>> 게시글 jsp :" + dto);
+		System.out.println(">>> 게시글 jsp :"+dto);
 		RequestDispatcher dir = request.getRequestDispatcher("fileboard/filePostBoard.jsp"); // 메인아니고 게시글
 		dir.forward(request, response);
 
