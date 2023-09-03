@@ -57,13 +57,15 @@
 			</section>
 			<section>
             	<c:forEach var="replyDetails" items="${replyDetailsList}">
-            	<article class="mt-3 mb-3 pb-3 border-bottom" data-reply-num="${replyDetails.replyNum}">
+            	<article class="ms-${replyDetails.level} mb-3 pb-3 border-bottom" data-reply-num="${replyDetails.replyNum}" data-article-type="content">
 	        		<div class="d-flex gap-2 align-items-center">
 		      			<p class="fw-bold">${replyDetails.memberName}</p>
 						<p class="text-secondary"><fmt:formatDate value="${replyDetails.createdAt}" pattern="MM/dd h:m"/></p>
+						<p class="text-secondary">L: ${replyDetails.level}</p>
 	      			</div>
 	      			<p class="text-break">${replyDetails.content}</p>
 	      			<div class="btn-group gap-2">
+	      				<button class="reply-button btn text-secondary p-0 m-0">댓글+</button>
       					<button class="toggle-button btn text-secondary p-0 m-0">편집</button>
 	      				<c:url var="deleteReplyUrl" value="/DeleteReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}"/>
 		      			<form action="${deleteReplyUrl}" method="post">
@@ -71,7 +73,7 @@
 	      				</form>
 	      			</div>
             	</article>
-            	<article class="mt-3 mb-3 pb-3 border-bottom d-none" data-reply-num="${replyDetails.replyNum}">
+            	<article class="ms-${replyDetails.level} mr-6 mt-3 mb-3 pb-3 border-bottom d-none" data-reply-num="${replyDetails.replyNum}" data-article-type="edit">
             		<c:url var="editReplyUrl" value="/EditReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}"/>
             		<form action="${editReplyUrl}" method="post">
 	        		<div class="d-flex gap-2 align-items-center">
@@ -85,17 +87,29 @@
 	      			</div>
 	      			</form>
             	</article>
+            	<article class="ms-${replyDetails.level} mt-3 mb-3 pb-3 border-bottom d-none" data-reply-num="${replyDetails.replyNum}" data-article-type="reply">
+            		<c:url var="newReplyActionUrl" value="/NewReplyServlet?comNum=${communityDetails.comNum}&parentReplyNum=${replyDetails.replyNum}"/>
+            		<form action="${newReplyActionUrl}" method="post">
+	        		<div class="d-flex gap-2 align-items-center">
+		      			<p class="fw-bold">${login.member_name}</p>
+	      			</div>
+					<textarea name="content" class="form-control" rows="3"></textarea>
+	      			<div class="btn-group gap-2">
+      					<button type="submit" class="btn text-secondary p-0 m-0">대댓달기</button>
+      					<button class="reply-button btn text-secondary p-0 m-0">취소</button>
+	      			</div>
+	      			</form>
+            	</article>
             	</c:forEach>
 			</section>	
       	</main>
    	</div>
 </div>
 <script>
-	console.log('open');
 	const toggle = (event) => {
-		console.log("event check!")
 		if (event.target.tagName.toLowerCase() === 'button') {
-
+			console.log(event.target);
+			console.log(event.currentTarget);
 			if (event.target.classList.contains('toggle-button')) {
 				event.preventDefault();
 				let articles = document.getElementsByTagName('article');
@@ -108,11 +122,28 @@
 		}
 	}
 	
+	const reply = (event) => {
+		if (event.target.tagName.toLowerCase() === 'button') {
+			if (event.target.classList.contains('reply-button')) {
+				event.preventDefault();
+				let articles = document.getElementsByTagName('article');
+				for (let article of articles) {
+					if (article.dataset.replyNum === event.currentTarget.dataset.replyNum &&
+							article.dataset.articleType === "reply") {
+						article.classList.toggle('d-none');
+					}
+				}
+			}
+		}
+	}
+	
 	let articles = document.getElementsByTagName('article');
 	
 	for (let article of articles) {
 		if (article.dataset.replyNum) {
 			article.addEventListener('click', toggle);
+			article.addEventListener('click', reply);
+			
 		}
 	}
 </script>
