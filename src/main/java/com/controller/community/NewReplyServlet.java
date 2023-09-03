@@ -37,8 +37,15 @@ public class NewReplyServlet extends HttpServlet {
 			Long memberNum = Long.valueOf(member.getMember_num());
 			Long comNum = Long.valueOf(request.getParameter("comNum"));
 			String content = request.getParameter("content");
+			Long parentReplyNum = null;
+			String parentReplyParam = request.getParameter("parentReplyNum");
+			if (parentReplyParam == null) {
+				parentReplyNum = null;
+			} else {
+				parentReplyNum = Long.valueOf(parentReplyParam);
+			}
 			
-			ReplyDTO reply = new ReplyDTO(memberNum, comNum, content);
+			ReplyDTO reply = new ReplyDTO(memberNum, comNum, parentReplyNum, content);
 			
 			replyService.save(reply);
 			
