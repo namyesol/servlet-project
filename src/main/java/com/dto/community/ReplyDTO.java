@@ -7,27 +7,20 @@ public class ReplyDTO {
     private Long replyNum;
     private Long memberNum;
     private Long comNum;
+    private Long parentReplyNum;
     private String content;
     private Date createdAt;
 
     public ReplyDTO() {
     }
 
-    public ReplyDTO(Long memberNum, Long comNum, String content) {
+    public ReplyDTO(Long memberNum, Long comNum, Long parentReplyNum, String content) {
         this.memberNum = memberNum;
         this.comNum = comNum;
+        this.parentReplyNum = parentReplyNum;
         this.content = content;
         this.createdAt = new Date();
     }
-
-	public ReplyDTO(Long replyNum, Long memberNum, Long comNum, String content, Date createdAt) {
-		super();
-		this.replyNum = replyNum;
-		this.memberNum = memberNum;
-		this.comNum = comNum;
-		this.content = content;
-		this.createdAt = createdAt;
-	}
 
 	public Long getReplyNum() {
 		return replyNum;
@@ -53,6 +46,14 @@ public class ReplyDTO {
 		this.comNum = comNum;
 	}
 
+	public Long getParentReplyNum() {
+		return parentReplyNum;
+	}
+
+	public void setParentReplyNum(Long parentReplyNum) {
+		this.parentReplyNum = parentReplyNum;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -69,12 +70,4 @@ public class ReplyDTO {
 		this.createdAt = createdAt;
 	}
 
-	@Override
-	public String toString() {
-		return "ReplyDTO [replyNum=" + replyNum + ", memberNum=" + memberNum + ", comNum=" + comNum + ", content="
-				+ content + ", createdAt=" + createdAt + "]";
-	}
-
-    
-	
 }

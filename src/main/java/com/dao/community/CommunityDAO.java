@@ -18,7 +18,7 @@ public class CommunityDAO {
 		return session.selectOne("CommunityMapper.getCommunityByNum", comNum);
 	}
 
-	public List<CommunityDTO> getCommunityBymemberNum(SqlSession session, Long memberNum) {	
+	public List<CommunityDTO> getCommunityByMemberNum(SqlSession session, Long memberNum) {	
 		return session.selectOne("CommunityMapper.getCommunityByMemberNum", memberNum);
 	}
 

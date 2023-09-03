@@ -34,9 +34,9 @@ public class DeleteReplyServlet extends HttpServlet {
 		} else {
 			Long replyNum = Long.parseLong(request.getParameter("replyNum"));
 			Long comNum = Long.parseLong(request.getParameter("comNum"));
-			Long memNum = Long.valueOf(member.getMember_num());
-			
-			replyService.delete(replyNum, memNum);
+			Long memberNum = Long.valueOf(member.getMember_num());
+
+			replyService.delete(replyNum, memberNum);
 			
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNum=" + comNum);
