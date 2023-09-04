@@ -21,8 +21,7 @@
 		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 			<h1 class="mt-3 mb-3">공지사항</h1>
 			<div class="d-flex justify-content-end mb-3">
-				<c:url var="newNoticeUrl" value="/NewNoticeServlet" />
-				<a href="${newNoticeUrl}">
+				<a href="/NewNoticeServlet">
 					<button type="button" class="btn btn-primary">작성</button>
 				</a>
 			</div>
@@ -39,13 +38,12 @@
 			       </thead>
 			       <tbody>               
 		        	<c:forEach var="notice" items="${pageResponse.items}">
-		        		<c:url var="NoticeDetailsUrl" value="/NoticeDetailsServlet?noticeNum=${notice.noticeNum}"/>
 			        	<tr>
 					        <th scope="row">
-					        	<a href="${NoticeDetailsUrl}">${notice.noticeNum}</a>
+					        	<a href="/NoticeDetailsServlet?noticeNum=${notice.noticeNum}">${notice.noticeNum}</a>
 				        	</th>
 				        	<td>
-				        		<a href="${NoticeDetailsUrl}">${notice.title}</a>
+				        		<a href="/NoticeDetailsServlet?noticeNum=${notice.noticeNum}">${notice.title}</a>
 				        	</td>
 				        	<td>${notice.memberName}</td>
 				        	<td><fmt:formatDate value="${notice.createdAt}" pattern="M월d일"/></td>
@@ -58,11 +56,10 @@
 			<div class="d-flex justify-content-center">
 		    	<nav aria-label="Page navigation example">
 				  <ul class="pagination">
-				  	<c:url var="noticeListUrl" value="/NoticeListServlet"/>
 				  	<c:choose>
 				  	<c:when test="${pageResponse.hasPrevious}">
 					    <li class="page-item">
-					      <a class="page-link" href="${noticeListUrl}?page=${pageResponse.start-1}&size=${pageResponse.size}" aria-label="Previous">
+					      <a class="page-link" href="/NoticeListServlet?page=${pageResponse.start-1}&size=${pageResponse.size}" aria-label="Previous">
 					        <span aria-hidden="true">&laquo;</span>
 					      </a>
 					    </li>
@@ -79,12 +76,12 @@
 				    <c:choose>
 					    <c:when test="${pageResponse.page eq status.current}">
 					    <li class="page-item active">
-					    	<a class="page-link" href="${noticeListUrl}?page=${status.current}&size=${pageResponse.size}">${status.current}</a>
+					    	<a class="page-link" href="/NoticeListServlet?page=${status.current}&size=${pageResponse.size}">${status.current}</a>
 				    	</li>
 					    </c:when>
 					    <c:otherwise>
    						<li class="page-item">
-					    	<a class="page-link" href="${noticeListUrl}?page=${status.current}&size=${pageResponse.size}">${status.current}</a>
+					    	<a class="page-link" href="/NoticeListServlet?page=${status.current}&size=${pageResponse.size}">${status.current}</a>
 				    	</li>
 					    </c:otherwise>
 				    </c:choose>					   
@@ -93,7 +90,7 @@
    				  	<c:choose>
 				  	<c:when test="${pageResponse.hasNext}">
 					    <li class="page-item">
-					      <a class="page-link" href="${noticeListUrl}?page=${pageResponse.end+1}&size=${pageResponse.size}" aria-label="Next">
+					      <a class="page-link" href="/NoticeListServlet?page=${pageResponse.end+1}&size=${pageResponse.size}" aria-label="Next">
 					        <span aria-hidden="true">&raquo;</span>
 					      </a>
 					    </li>

@@ -30,16 +30,13 @@
       			<p class="text-break">${notice.content}</p>
       		</article>
     		<div class="btn-group me-2 w-100">
-				<c:url var="editNoticeUrl" value="/EditNoticeServlet?noticeNum=${notice.noticeNum}" />
-				<a href="${editNoticeUrl}">
+				<a href="/EditNoticeServlet?noticeNum=${notice.noticeNum}">
 					<button type="button" class="btn btn-outline-primary">수정</button>
 				</a>
-				<c:url var="deleteNoticeUrl" value="/DeleteNoticeServlet?noticeNum=${notice.noticeNum}"/>
-				<form action="${deleteNoticeUrl}" method="post">
+				<form action="/DeleteNoticeServlet?noticeNum=${notice.noticeNum}" method="post">
 					<button type="submit" class="btn btn-outline-danger">삭제</button>
 				</form>
-				<c:url var="noticeListUrl" value="/NoticeListServlet"/>
-				<a href="${noticeListUrl}">
+				<a href="/NoticeListServlet">
 					<button type="button" class="btn btn-outline-dark">뒤로가기</button>
 				</a>
 			</div>
