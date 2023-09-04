@@ -41,7 +41,13 @@ public class CommunityListServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + Constants.Login_URL);
 		} else {
-			Page page = buildPageFrom(request);
+			// 페이지네이션 정보 생성
+			String pageParam = request.getParameter("page");
+			String sizeParam = request.getParameter("size");
+			int pageNumber = pageParam == null ? Page.START_PAGE_OFFSET : Integer.parseInt(pageParam);
+			int size = sizeParam == null ? Page.DEFAULT_PAGE_SIZE : Integer.parseInt(sizeParam);
+			
+			Page page = new Page(pageNumber, size);
 			
 			PageResponseDTO<CommunityDetailsDTO> pageResponse = communityService.getCommunityDetailsList(page);
 			request.setAttribute("pageResponse", pageResponse);
@@ -50,15 +56,6 @@ public class CommunityListServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 			dispatcher.forward(request, response);
 		}
-	}
-	
-	private Page buildPageFrom(HttpServletRequest request) {
-		String pageParam = request.getParameter("page");
-		String sizeParam = request.getParameter("size");
-		int pageNumber = pageParam == null ? Page.START_PAGE_OFFSET : Integer.parseInt(pageParam);
-		int size = sizeParam == null ? Page.DEFAULT_PAGE_SIZE : Integer.parseInt(sizeParam);
-		
-		return new Page(pageNumber, size);
 	}
 	
 }
