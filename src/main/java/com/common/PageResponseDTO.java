@@ -16,7 +16,7 @@ public class PageResponseDTO<T> {
 	private boolean hasNext;
 	
 	
-	public PageResponseDTO(Page page, List<T> items, int count) {
+	public PageResponseDTO(PageRequestDTO page, List<T> items, int count) {
 		// 현재 페이지의 번호.
 		this.page = page.getPage();
 		// 페이지 당 아이템 개수.

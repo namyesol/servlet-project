@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.common.Page;
+import com.common.PageRequestDTO;
 import com.dto.community.CommunityDTO;
 import com.dto.community.CommunityDetailsDTO;
 
@@ -43,7 +43,7 @@ public class CommunityDAO {
 		return session.selectOne("CommunityMapper.getCommunityDetailsByNum", comNum);
 	}
 
-	public List<CommunityDetailsDTO> getCommunityDetailsList(SqlSession session, Page page) {
+	public List<CommunityDetailsDTO> getCommunityDetailsList(SqlSession session, PageRequestDTO page) {
 		return session.selectList("CommunityMapper.getCommunityDetailsList", page);
 	}
 	

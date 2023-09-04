@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.common.Constants;
 import com.dto.MemberDTO;
 import com.dto.notice.NoticeDTO;
 import com.service.notice.NoticeService;
@@ -31,10 +30,9 @@ public class EditNoticeServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long noticeNum = Long.parseLong(request.getParameter("noticeNum"));
 
@@ -52,10 +50,9 @@ public class EditNoticeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long memberNum = Long.valueOf(member.getMember_num());
 
@@ -71,8 +68,7 @@ public class EditNoticeServlet extends HttpServlet {
 
 			noticeService.updateNotice(noticeNum, memberNum, updateDTO);
 
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/NoticeDetailsServlet" + "?noticeNum=" + noticeNum);
+			response.sendRedirect("/NoticeDetailsServlet" + "?noticeNum=" + noticeNum);
 		}
 	}
 

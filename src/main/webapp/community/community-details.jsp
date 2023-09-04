@@ -30,22 +30,18 @@
       			<p class="text-break">${communityDetails.content}</p>
       		</article>
     		<div class="btn-group me-2 w-100">
-				<c:url var="editCommunityUrl" value="/EditCommunityServlet?comNum=${communityDetails.comNum}" />
-				<a href="${editCommunityUrl}">
+				<a href="/EditCommunityServlet?comNum=${communityDetails.comNum}">
 					<button type="button" class="btn btn-outline-primary">수정</button>
 				</a>
-				<c:url var="deleteCommunityUrl" value="/DeleteCommunityServlet?comNum=${communityDetails.comNum}"/>
-				<form action="${deleteCommunityUrl}" method="post">
+				<form action="/DeleteCommunityServlet?comNum=${communityDetails.comNum}" method="post">
 					<button type="submit" class="btn btn-outline-danger">삭제</button>
 				</form>
-				<c:url var="communityListUrl" value="/CommunityListServlet"/>
-				<a href="${communityListUrl}">
+				<a href="/CommunityListServlet">
 					<button type="button" class="btn btn-outline-dark">뒤로가기</button>
 				</a>
 			</div>
 			<section class="mt-3 mb-3">
-      			<c:url var="newReplyActionUrl" value="/NewReplyServlet?comNum=${communityDetails.comNum}"/>
-				<form action="${newReplyActionUrl}" method="post">
+				<form action="/NewReplyServlet?comNum=${communityDetails.comNum}" method="post">
 					<div class="mb-3">
 						<label for="content" class="form-label">댓글</label>
 						<textarea name="content" class="form-control" rows="3"></textarea>
@@ -67,15 +63,13 @@
 	      			<div class="btn-group gap-2">
 	      				<button class="reply-button btn text-secondary p-0 m-0">댓글+</button>
       					<button class="toggle-button btn text-secondary p-0 m-0">편집</button>
-	      				<c:url var="deleteReplyUrl" value="/DeleteReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}"/>
-		      			<form action="${deleteReplyUrl}" method="post">
+		      			<form action="/DeleteReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}" method="post">
 	      					<button class="btn text-secondary p-0 m-0">삭제</button>
 	      				</form>
 	      			</div>
             	</article>
             	<article class="ms-${replyDetails.level} mr-6 mt-3 mb-3 pb-3 border-bottom d-none" data-reply-num="${replyDetails.replyNum}" data-article-type="edit">
-            		<c:url var="editReplyUrl" value="/EditReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}"/>
-            		<form action="${editReplyUrl}" method="post">
+            		<form action="/EditReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}" method="post">
 	        		<div class="d-flex gap-2 align-items-center">
 		      			<p class="fw-bold">${replyDetails.memberName}</p>
 						<p class="text-secondary"><fmt:formatDate value="${replyDetails.createdAt}" pattern="MM/dd h:m"/></p>
@@ -88,8 +82,7 @@
 	      			</form>
             	</article>
             	<article class="ms-${replyDetails.level} mt-3 mb-3 pb-3 border-bottom d-none" data-reply-num="${replyDetails.replyNum}" data-article-type="reply">
-            		<c:url var="newReplyActionUrl" value="/NewReplyServlet?comNum=${communityDetails.comNum}&parentReplyNum=${replyDetails.replyNum}"/>
-            		<form action="${newReplyActionUrl}" method="post">
+            		<form action="/NewReplyServlet?comNum=${communityDetails.comNum}&parentReplyNum=${replyDetails.replyNum}" method="post">
 	        		<div class="d-flex gap-2 align-items-center">
 		      			<p class="fw-bold">${login.member_name}</p>
 	      			</div>

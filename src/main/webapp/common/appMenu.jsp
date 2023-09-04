@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 	<title>전자결재 메뉴바</title>
-	<link rel="stylesheet" type="text/css" href="../css/appMenu.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/appMenu.css">
 </head>
 <body>
 

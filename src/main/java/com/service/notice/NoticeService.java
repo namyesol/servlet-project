@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.common.Page;
+import com.common.PageRequestDTO;
 import com.common.PageResponseDTO;
 import com.config.MySqlSessionFactory;
 import com.dao.notice.NoticeDAO;
@@ -21,7 +21,7 @@ public class NoticeService {
 	}
 	
 	public void createNotice(Long memberNum, NoticeDTO notice) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			dao.insert(session, notice); 
 			session.commit();
@@ -32,12 +32,8 @@ public class NoticeService {
 		}
 	}
 
-	private SqlSession getSession() {
-		return MySqlSessionFactory.getSession();
-	}
-
 	public NoticeDTO getNoticeByNo(Long noticeNum) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			return dao.getNoticeByNo(session, noticeNum);
 		} catch (Exception e) {
@@ -49,10 +45,10 @@ public class NoticeService {
 		return null;
 	}
 
-	public List<NoticeDTO> getNotices() {
-		SqlSession session = getSession();
+	public List<NoticeDTO> getNoticeList() {
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
-			return dao.getNotices(session); 
+			return dao.getNoticeList(session); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -63,7 +59,7 @@ public class NoticeService {
 	}
 
 	public NoticeDetailsDTO getNoticeDetailsByNo(Long noticeNum) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			dao.increaseViews(session, noticeNum);
 			NoticeDetailsDTO notice = dao.getNoticeDetailsByNo(session, noticeNum);
@@ -78,8 +74,8 @@ public class NoticeService {
 		return null;
 	}
 
-	public PageResponseDTO<NoticeDetailsDTO> getNoticeDetailsList(Page page) {
-		SqlSession session = getSession();
+	public PageResponseDTO<NoticeDetailsDTO> getNoticeDetailsList(PageRequestDTO page) {
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			int count= dao.countNotice(session);
 			List<NoticeDetailsDTO> noticeDetailsList = dao.getNoticeDetailsList(session, page);
@@ -93,7 +89,7 @@ public class NoticeService {
 	}
 	
 	public void updateNotice(Long noticeNum, Long memberNum, NoticeDTO updateDTO) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			NoticeDTO notice = dao.getNoticeByNo(session, noticeNum);
 	
@@ -114,7 +110,7 @@ public class NoticeService {
 	}
 
 	public void deleteNotice(Long noticeNum, Long memberNum) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			
 			NoticeDTO notice = dao.getNoticeByNo(session, noticeNum);

@@ -24,95 +24,92 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<insert id="insert" parameterType="NoticeDTO">
-		<selectKey keyProperty="noticeNum" resultType="Long"
-			order="BEFORE">
+		<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
 			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 
-		INSERT INTO NOTICE (notice_num, member_num, title, content, views, created_at)
-		VALUES (#{noticeNum}, #{memberNum}, #{title}, #{content},
-		#{views}, #{createdAt})
+		INSERT INTO notice 
+			(notice_num, member_num, title, content, views, created_at)
+		VALUES
+			(#{noticeNum}, #{memberNum}, #{title}, #{content}, #{views}, #{createdAt})
 	</insert>
 
-	<select id="getNoticeByNum" parameterType="Long"
-		resultMap="NoticeResultMap">
+	<select id="getNoticeByNum" parameterType="Long" resultMap="NoticeResultMap">
 		SELECT *
-		FROM NOTICE
-		WHERE notice_num=#{noticeNum}
+		FROM notice
+		WHERE notice_num = #{noticeNum}
 	</select>
 
 
-	<select id="getNotices" resultMap="NoticeResultMap">
+	<select id="getNoticeList" resultMap="NoticeResultMap">
 		SELECT *
-		FROM NOTICE
+		FROM notice
 	</select>
-
-
 
 	<select id="getNoticeDetailsByNum" parameterType="Long" resultMap="NoticeDetailsResultMap">
-		select
-			n.notice_num as notice_num,
-			n.member_num as member_num,
-			n.title as title,
-			n.content as content,
-			n.views as views,
-			n.created_at as created_at,
-			m.member_name as member_name
-		from notice n
-		left outer join member m
-		on n.member_num = m.member_num
-		where n.notice_num = #{noticeNum}
+		SELECT
+			N.notice_num as notice_num,
+			N.member_num as member_num,
+			N.title as title,
+			N.content as content,
+			N.views as views,
+			N.created_at as created_at,
+			M.member_name as member_name
+		FROM notice N
+		LEFT OUTER JOIN member M
+		ON N.member_num = M.member_num
+		WHERE N.notice_num = #{noticeNum}
 	</select>
 	
 	<select id="countNotice" resultType="java.lang.Integer">
-		SELECT COUNT(DISTINCT notice_num)
-		FROM notice
+		SELECT COUNT(DISTINCT N.notice_num)
+		FROM notice N
 	</select>
 	
 	<select id="getNoticeDetailsList" resultMap="NoticeDetailsResultMap">
 	<![CDATA[
-	SELECT *
-	FROM
-	(	SELECT ROWNUM rnum, subq.*
-		FROM (
-			select
-				n.notice_num as notice_num,
-				n.member_num as member_num,
-				n.title as title,
-				n.content as content,
-				n.views as views,
-				n.created_at as created_at,
-				m.member_name as member_name
-			from notice n
-			left outer join member m
-			on n.member_num = m.member_num
-			order by notice_num DESC
+		SELECT *
+		FROM
+		(	
+			SELECT ROWNUM rnum, subq.*
+			FROM
+			(
+				SELECT
+					N.notice_num as notice_num,
+					N.member_num as member_num,
+					N.title as title,
+					N.content as content,
+					N.views as views,
+					N.created_at as created_at,
+					M.member_name as member_name
+				FROM notice N
+				LEFT OUTER JOIN member m
+				ON N.member_num = M.member_num
+				ORDER BY notice_num DESC
 			) subq
-		WHERE ROWNUM <= (#{page} * #{size})
-	)
-	WHERE rnum >= ((#{page} - 1) * #{size}) + 1
+			WHERE ROWNUM <= (#{page} * #{size})
+		)
+		WHERE rnum >= ((#{page} - 1) * #{size}) + 1
 	]]>
 	</select>
 
 	<update id="update" parameterType="NoticeDTO">
-		UPDATE NOTICE
+		UPDATE notice
 		SET
-		title=#{title},
-		content=#{content}
-		WHERE notice_num=#{noticeNum}
+			title = #{title},
+			content = #{content}
+		WHERE notice_num = #{noticeNum}
 	</update>
 
 	<delete id="delete" parameterType="Long">
-		DELETE FROM NOTICE
-		WHERE
-		notice_num=#{noticeNum}
+		DELETE FROM notice WHERE notice_num = #{noticeNum}
 	</delete>
 	
 	<update id="increaseViews" parameterType="Long">
-	   UPDATE NOTICE
+	   UPDATE notice
 	   SET
-	       views=views+1
-	   WHERE notice_num=#{noticeNum}
+	       views = views+1
+	   WHERE notice_num = #{noticeNum}
 	</update>
 
 </mapper>

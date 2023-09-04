@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 
    <properties resource="com/config/jdbc.properties" />
+   
    <settings>
    	<setting name="jdbcTypeForNull" value="NULL"/>
    </settings>
@@ -33,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			</dataSource>
 		</environment>
 	</environments>
+	
 	<mappers>
 		<mapper resource="com/config/MemberMapper.xml" />
 		<mapper resource="com/config/FileBoardMapper.xml" />
@@ -41,6 +43,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/config/CommunityMapper.xml" />
 		<mapper resource="com/config/ReplyMapper.xml" />
 	</mappers>
+	
 </configuration>
 
 

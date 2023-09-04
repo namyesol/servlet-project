@@ -28,55 +28,67 @@
             SELECT REPLY_SEQ.NEXTVAL FROM DUAL
         </selectKey>
         
-        INSERT INTO REPLY
+        INSERT INTO reply
             (reply_num, member_num, com_num, parent_reply_num, reply_content, reply_created_at)
         VALUES
             (#{replyNum}, #{memberNum}, #{comNum}, #{parentReplyNum}, #{content}, #{createdAt})
     </insert>
 
     <select id="getReplyByNum" parameterType="Long" resultMap="ReplyResultMap">
-        SELECT reply_num, member_num, com_num, parent_reply_num, reply_content, reply_created_at
-        FROM REPLY
-        WHERE reply_num=#{replyNum}
+        SELECT
+        	reply_num,
+        	member_num,
+        	com_num,
+        	parent_reply_num,
+        	reply_content,
+        	reply_created_at
+        FROM reply
+        WHERE reply_num = #{replyNum}
     </select>
 
     <select id="getReplyListByComNum" parameterType="Long" resultMap="ReplyResultMap">
-        SELECT reply_num, member_num, com_num, parent_reply_num, reply_content, reply_created_at
-        FROM REPLY
-        WHERE com_num=#{comNum}
+        SELECT 
+        	reply_num,
+        	member_num,
+        	com_num,
+        	parent_reply_num,
+        	reply_content,
+        	reply_created_at
+        FROM reply
+        WHERE com_num = #{comNum}
     </select>
 
     <update id="update" parameterType="ReplyDTO">
-        UPDATE REPLY
+        UPDATE reply
         SET
         	reply_content = #{content}
         WHERE reply_num=#{replyNum}
     </update>
 
     <delete id="delete" parameterType="Long">
-        DELETE FROM REPLY WHERE reply_num=#{replyNum}
+        DELETE FROM reply WHERE reply_num = #{replyNum}
     </delete>
     
     
     <select id="getReplyDetailsListByComNum" parameterType="Long" resultMap="ReplyDetailsResultMap">
-        select level, reply_num, com_num, parent_reply_num, reply_content, reply_created_at, member_num, member_name
+        SELECT LEVEL, reply_num, com_num, parent_reply_num, reply_content, reply_created_at, member_num, member_name
        	FROM
         (
 	        SELECT
-	            r.reply_num as reply_num,
-	            r.com_num as com_num,
-	            r.parent_reply_num,
-	            r.reply_content as reply_content,
-	            r.reply_created_at as reply_created_at,
-	            m.member_num as member_num,
-	            m.member_name as member_name
-	        FROM reply r
-	            INNER JOIN member m
-	            ON r.member_num = m.member_num
-	        WHERE r.com_num=#{comNum}
+	            R.reply_num as reply_num,
+	            R.com_num as com_num,
+	            R.parent_reply_num,
+	            R.reply_content as reply_content,
+	            R.reply_created_at as reply_created_at,
+	            M.member_num as member_num,
+	            M.member_name as member_name
+	        FROM reply R
+	            LEFT OUTER JOIN member M
+	            ON R.member_num = M.member_num
+	        WHERE R.com_num = #{comNum}
         )
-		START WITH PARENT_REPLY_NUM is null
-		CONNECT BY PRIOR reply_num = PARENT_REPLY_NUM
+		START WITH parent_reply_num is null
+		CONNECT BY PRIOR reply_num = parent_reply_num
 		ORDER SIBLINGS BY reply_num
     </select>
     

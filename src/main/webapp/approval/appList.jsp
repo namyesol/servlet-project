@@ -61,7 +61,7 @@
 			</c:forEach>
 		</table>
 		
-		<jsp:include page="appPaging.jsp"></jsp:include> <!-- 페이징 -->
+		<jsp:include page="appPaging.jsp"></jsp:include>  <!-- 페이징 --> 
 		
 		<div class="l-search">
 			<form action="/approval/${type}Search.sw" method="get">

@@ -14,10 +14,9 @@
 			 <p>회의실
 			 <img id="img" alt="" src="image/pencil.svg">
 		</div>		
-		<div class="s-list-item"><a href="MeetingRoomReserve">예약하기</a></div>
-		<div class="s-list-item"><a href="MeetingRoomCheck">예약 확인</a>
+		<div class="s-list-item"><a href="MeetingRoom">예약하기</a></div>
+		<div class="s-list-item"><a href="MeetingRoomCheck">예약 확인</a></div>
 	</div>
-
 
 </body>
 </html>

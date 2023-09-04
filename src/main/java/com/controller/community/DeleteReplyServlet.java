@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.common.Constants;
 import com.dto.MemberDTO;
 import com.service.community.ReplyService;
 
@@ -27,10 +26,9 @@ public class DeleteReplyServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long replyNum = Long.parseLong(request.getParameter("replyNum"));
 			Long comNum = Long.parseLong(request.getParameter("comNum"));
@@ -38,8 +36,7 @@ public class DeleteReplyServlet extends HttpServlet {
 
 			replyService.delete(replyNum, memberNum);
 			
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNum=" + comNum);
+			response.sendRedirect("/CommunityDetailsServlet" + "?comNum=" + comNum);
 		}
 	}
 }

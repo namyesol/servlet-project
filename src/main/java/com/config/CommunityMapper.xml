@@ -10,8 +10,7 @@
 		<result property="createdAt" column="com_created_at" />
 	</resultMap>
 
-	<resultMap id="CommunityDetailsResultMap"
-		type="CommunityDetailsDTO">
+	<resultMap id="CommunityDetailsResultMap" type="CommunityDetailsDTO">
 		<id property="comNum" column="com_num" />
 		<result property="memberNum" column="member_num" />
 		<result property="memberName" column="member_name" />
@@ -26,45 +25,61 @@
 			SELECT COMMUNITY_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 
-		INSERT INTO COMMUNITY
-		(com_num, member_num, com_title, com_content, com_views, com_created_at)
+		INSERT INTO community
+			(com_num, member_num, com_title, com_content, com_views, com_created_at)
 		VALUES
-		(#{comNum}, #{memberNum}, #{title}, #{content}, #{views}, #{createdAt})
+			(#{comNum}, #{memberNum}, #{title}, #{content}, #{views}, #{createdAt})
 	</insert>
 
 	<select id="getCommunityByNum" parameterType="Long"
 		resultMap="CommunityResultMap">
-		SELECT com_num, member_num, com_title, com_content, com_views, com_created_at
-		FROM COMMUNITY
-		where com_num=#{comNum}
+		SELECT
+			com_num,
+			member_num,
+			com_title,
+			com_content,
+			com_views,
+			com_created_at
+		FROM community
+		WHERE com_num = #{comNum}
 	</select>
 
-	<select id="getCommunityByMemberNum" parameterType="Long"
-		resultMap="CommunityResultMap">
-		SELECT com_num, member_num, com_title, com_content, com_views, com_created_at
-		FROM COMMUNITY
-		where member_num=#{memberNum}
+	<select id="getCommunityByMemberNum" parameterType="Long" resultMap="CommunityResultMap">
+		SELECT
+			com_num,
+			member_num,
+			com_title,
+			com_content,
+			com_views,
+			com_created_at
+		FROM community
+		WHERE member_num = #{memberNum}
 	</select>
 
 	<select id="getCommunityList" resultMap="CommunityResultMap">
-		SELECT com_num, member_num, com_title, com_content, com_views, com_created_at
-		FROM COMMUNITY
+		SELECT
+			com_num,
+			member_num,
+			com_title,
+			com_content,
+			com_views,
+			com_created_at
+		FROM community
 	</select>
 
 	<update id="update" parameterType="CommunityDTO">
-		UPDATE COMMUNITY
+		UPDATE community
 		SET
 			com_title = #{title},
 			com_content = #{content}
-		WHERE com_num=#{comNum}
+		WHERE com_num = #{comNum}
 	</update>
 
 	<delete id="delete" parameterType="Long">
-		DELETE FROM COMMUNITY WHERE com_num=#{comNum}
+		DELETE FROM community WHERE com_num = #{comNum}
 	</delete>
 
-	<select id="getCommunityDetailsByNum" parameterType="Long"
-		resultMap="CommunityDetailsResultMap">
+	<select id="getCommunityDetailsByNum" parameterType="Long" resultMap="CommunityDetailsResultMap">
 		SELECT
 			c.com_num as com_num,
 			c.com_title as com_title,
@@ -76,29 +91,29 @@
 		FROM community c
 		INNER JOIN member m
 		ON c.member_num = m.member_num
-		WHERE c.com_num=#{comNum}
+		WHERE c.com_num = #{comNum}
 	</select>
 
 	<update id="increaseViews" parameterType="Long">
-	   UPDATE COMMUNITY
+	   UPDATE community
 	   SET
-	       com_views=com_views+1
-	   WHERE com_num=#{comNum}
+	       com_views = com_views+1
+	   WHERE com_num = #{comNum}
 	</update>
 
 	<select id="count" resultType="java.lang.Integer">
 		SELECT COUNT(DISTINCT C.com_num)
-		FROM COMMUNITY C
+		FROM community C
 	</select>
 	
-	<sql id="PaginationUsingRownum"> 
+	<select id="getCommunityDetailsList" resultMap="CommunityDetailsResultMap">
 	<![CDATA[
 		SELECT *
 		FROM
-			(
+		(
 			SELECT ROWNUM rnum , subq.*
 			FROM 
-				(
+			(
 				SELECT
 					C.com_num as com_num,
 					C.com_title as com_title,
@@ -112,13 +127,9 @@
 				ON C.member_num = M.member_num
 				ORDER BY com_num DESC
 			) subq
-			WHERE ROWNUM <= ( #{page} * #{size} )
+			WHERE ROWNUM <= (#{page} * #{size})
 		)
 		WHERE rnum >= ((#{page} - 1) * #{size}) + 1
 	]]>
-	</sql>
-	
-	<select id="getCommunityDetailsList" resultMap="CommunityDetailsResultMap">
-		<include refid="PaginationUsingRownum"/>
 	</select>
 </mapper>

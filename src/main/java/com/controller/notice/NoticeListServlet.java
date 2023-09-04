@@ -1,7 +1,6 @@
 package com.controller.notice;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.common.Constants;
-import com.common.Page;
+import com.common.PageRequestDTO;
 import com.common.PageResponseDTO;
 import com.dto.MemberDTO;
 import com.dto.notice.NoticeDetailsDTO;
@@ -34,14 +32,29 @@ public class NoticeListServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
-			Page page = buildPageFrom(request);
+			// 페이지네이션 정보 생성
+			String pageParam = request.getParameter("page");
+			String sizeParam = request.getParameter("size");
+			// 요청페이지의 기본 값
+			int page = 1;
+			// 요청페이지의 기본 크기 
+			int size = 5;
 			
-			PageResponseDTO<NoticeDetailsDTO> pageResponse = noticeService.getNoticeDetailsList(page);
+			// 사용자의 요청이 있다면 페이지 번호와 크기를 변경함
+			if (pageParam != null && !pageParam.isEmpty()) {
+				page = Integer.parseInt(pageParam);
+			}
+			if (sizeParam != null && !sizeParam.isEmpty()) {
+				size = Integer.parseInt(sizeParam);
+			}
+			
+			PageRequestDTO pageRequest = new PageRequestDTO(page, size);
+			
+			PageResponseDTO<NoticeDetailsDTO> pageResponse = noticeService.getNoticeDetailsList(pageRequest);
 
 			request.setAttribute("pageResponse", pageResponse);
 
@@ -50,14 +63,4 @@ public class NoticeListServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 	}
-	
-	private Page buildPageFrom(HttpServletRequest request) {
-		String pageParam = request.getParameter("page");
-		String sizeParam = request.getParameter("size");
-		int pageNumber = pageParam == null ? Page.START_PAGE_OFFSET : Integer.parseInt(pageParam);
-		int size = sizeParam == null ? Page.DEFAULT_PAGE_SIZE : Integer.parseInt(sizeParam);
-		
-		return new Page(pageNumber, size);
-	}
-
 }

@@ -29,7 +29,7 @@ public class MeetingRoomCheckServlet extends HttpServlet {
 		String nextPage = null;
 		
 		if(dto != null) {//로그인성공시 실행
-			nextPage = "meetingRoomCheck.jsp";
+			nextPage = "meeting_meetingCheck.jsp";
 			int memberNum = dto.getMember_num();//dto에서 memeber_num가져오기
 			
 			MeetingRoomService serviceM = new MeetingRoomService();

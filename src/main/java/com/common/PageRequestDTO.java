@@ -1,17 +1,11 @@
 package com.common;
 
-/**
- * Value Object for Pagination Request
- */
-public class Page {
-	
-	public static final int DEFAULT_PAGE_SIZE = 5;
-	public static final int START_PAGE_OFFSET = 1;
-	
+public class PageRequestDTO {
+		
 	private int page;
 	private int size;
 	
-	public Page(int page, int size) {
+	public PageRequestDTO(int page, int size) {
 		this.page = page;
 		this.size = size;
 	}

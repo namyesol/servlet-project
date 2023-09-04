@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.common.Page;
+import com.common.PageRequestDTO;
 import com.dto.notice.NoticeDTO;
 import com.dto.notice.NoticeDetailsDTO;
 
@@ -18,8 +18,8 @@ public class NoticeDAO {
 		return session.selectOne("NoticeMapper.getNoticeByNum", noticeNum);
 	}
 
-	public List<NoticeDTO> getNotices(SqlSession session) {
-		return session.selectList("NoticeMapper.getNotices");
+	public List<NoticeDTO> getNoticeList(SqlSession session) {
+		return session.selectList("NoticeMapper.getNoticeList");
 	}
 
 	public void update(SqlSession session, NoticeDTO notice) {
@@ -34,7 +34,7 @@ public class NoticeDAO {
 		return session.selectOne("NoticeMapper.getNoticeDetailsByNum", noticeNum);
 	}
 
-	public List<NoticeDetailsDTO> getNoticeDetailsList(SqlSession session, Page page) {
+	public List<NoticeDetailsDTO> getNoticeDetailsList(SqlSession session, PageRequestDTO page) {
 		return session.selectList("NoticeMapper.getNoticeDetailsList", page);
 	}
 
