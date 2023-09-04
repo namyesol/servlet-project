@@ -43,7 +43,7 @@
 			<section class="mt-3 mb-3">
 				<form action="/NewReplyServlet?comNum=${communityDetails.comNum}" method="post">
 					<div class="mb-3">
-						<label for="content" class="form-label">댓글</label>
+						<label for="content" class="form-label">댓글 달기</label>
 						<textarea name="content" class="form-control" rows="3"></textarea>
 					</div>
 					<div>
@@ -57,12 +57,12 @@
 	        		<div class="d-flex gap-2 align-items-center">
 		      			<p class="fw-bold">${replyDetails.memberName}</p>
 						<p class="text-secondary"><fmt:formatDate value="${replyDetails.createdAt}" pattern="MM/dd h:m"/></p>
-						<p class="text-secondary">L: ${replyDetails.level}</p>
+						<p class="text-secondary">댓글 깊이 : ${replyDetails.level}</p>
 	      			</div>
 	      			<p class="text-break">${replyDetails.content}</p>
 	      			<div class="btn-group gap-2">
-	      				<button class="reply-button btn text-secondary p-0 m-0">댓글+</button>
-      					<button class="toggle-button btn text-secondary p-0 m-0">편집</button>
+	      				<button class="reply-toggle-button btn text-secondary p-0 m-0">댓글 달기</button>
+      					<button class="edit-toggle-button btn text-secondary p-0 m-0">편집</button>
 		      			<form action="/DeleteReplyServlet?replyNum=${replyDetails.replyNum}&comNum=${communityDetails.comNum}" method="post">
 	      					<button class="btn text-secondary p-0 m-0">삭제</button>
 	      				</form>
@@ -77,7 +77,7 @@
 					<textarea name="content" class="form-control" rows="3">${replyDetails.content}</textarea>
 	      			<div class="btn-group gap-2">
       					<button type="submit" class="btn text-secondary p-0 m-0">수정</button>
-      					<button class="toggle-button btn text-secondary p-0 m-0">취소</button>
+      					<button class="edit-toggle-button btn text-secondary p-0 m-0">취소</button>
 	      			</div>
 	      			</form>
             	</article>
@@ -89,7 +89,7 @@
 					<textarea name="content" class="form-control" rows="3"></textarea>
 	      			<div class="btn-group gap-2">
       					<button type="submit" class="btn text-secondary p-0 m-0">대댓달기</button>
-      					<button class="reply-button btn text-secondary p-0 m-0">취소</button>
+      					<button class="reply-toggle-button btn text-secondary p-0 m-0">취소</button>
 	      			</div>
 	      			</form>
             	</article>
@@ -99,15 +99,16 @@
    	</div>
 </div>
 <script>
-	const toggle = (event) => {
+	const editToggle = (event) => {
 		if (event.target.tagName.toLowerCase() === 'button') {
 			console.log(event.target);
 			console.log(event.currentTarget);
-			if (event.target.classList.contains('toggle-button')) {
+			if (event.target.classList.contains('edit-toggle-button')) {
 				event.preventDefault();
 				let articles = document.getElementsByTagName('article');
 				for (let article of articles) {
-					if (article.dataset.replyNum === event.currentTarget.dataset.replyNum) {
+					if (article.dataset.replyNum === event.currentTarget.dataset.replyNum &&
+						(article.dataset.articleType === "edit" || article.dataset.articleType === "content")) {
 						article.classList.toggle('d-none');
 					}
 				}
@@ -115,14 +116,14 @@
 		}
 	}
 	
-	const reply = (event) => {
+	const replyToggle = (event) => {
 		if (event.target.tagName.toLowerCase() === 'button') {
-			if (event.target.classList.contains('reply-button')) {
+			if (event.target.classList.contains('reply-toggle-button')) {
 				event.preventDefault();
 				let articles = document.getElementsByTagName('article');
 				for (let article of articles) {
 					if (article.dataset.replyNum === event.currentTarget.dataset.replyNum &&
-							article.dataset.articleType === "reply") {
+						article.dataset.articleType === "reply") {
 						article.classList.toggle('d-none');
 					}
 				}
@@ -134,9 +135,8 @@
 	
 	for (let article of articles) {
 		if (article.dataset.replyNum) {
-			article.addEventListener('click', toggle);
-			article.addEventListener('click', reply);
-			
+			article.addEventListener('click', editToggle);
+			article.addEventListener('click', replyToggle);
 		}
 	}
 </script>
