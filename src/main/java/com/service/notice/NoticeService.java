@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.common.Page;
+import com.common.PageRequestDTO;
 import com.common.PageResponseDTO;
 import com.config.MySqlSessionFactory;
 import com.dao.notice.NoticeDAO;
@@ -74,7 +74,7 @@ public class NoticeService {
 		return null;
 	}
 
-	public PageResponseDTO<NoticeDetailsDTO> getNoticeDetailsList(Page page) {
+	public PageResponseDTO<NoticeDetailsDTO> getNoticeDetailsList(PageRequestDTO page) {
 		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			int count= dao.countNotice(session);

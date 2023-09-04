@@ -1,11 +1,11 @@
 package com.common;
 
-public class Page {
+public class PageRequestDTO {
 		
 	private int page;
 	private int size;
 	
-	public Page(int page, int size) {
+	public PageRequestDTO(int page, int size) {
 		this.page = page;
 		this.size = size;
 	}

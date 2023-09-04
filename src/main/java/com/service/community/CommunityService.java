@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.common.Page;
+import com.common.PageRequestDTO;
 import com.common.PageResponseDTO;
 import com.config.MySqlSessionFactory;
 import com.dao.community.CommunityDAO;
@@ -139,7 +139,7 @@ public class CommunityService {
     }
 
     
-    public PageResponseDTO<CommunityDetailsDTO> getCommunityDetailsList(Page page) {
+    public PageResponseDTO<CommunityDetailsDTO> getCommunityDetailsList(PageRequestDTO page) {
     	SqlSession session = MySqlSessionFactory.getSession();
     	try {
     		int count = communityDao.count(session);

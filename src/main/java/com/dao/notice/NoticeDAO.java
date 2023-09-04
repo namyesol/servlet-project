@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.common.Page;
+import com.common.PageRequestDTO;
 import com.dto.notice.NoticeDTO;
 import com.dto.notice.NoticeDetailsDTO;
 
@@ -34,7 +34,7 @@ public class NoticeDAO {
 		return session.selectOne("NoticeMapper.getNoticeDetailsByNum", noticeNum);
 	}
 
-	public List<NoticeDetailsDTO> getNoticeDetailsList(SqlSession session, Page page) {
+	public List<NoticeDetailsDTO> getNoticeDetailsList(SqlSession session, PageRequestDTO page) {
 		return session.selectList("NoticeMapper.getNoticeDetailsList", page);
 	}
 
