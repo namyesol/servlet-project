@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.common.Constants;
 import com.dto.MemberDTO;
 import com.dto.community.CommunityDetailsDTO;
 import com.dto.community.ReplyDetailsDTO;
@@ -35,7 +34,7 @@ public class CommunityDetailsServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
 			response.sendRedirect("/");
 		} else {

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.common.Constants;
 import com.dto.MemberDTO;
 import com.dto.community.ReplyDTO;
 import com.service.community.ReplyService;
@@ -28,7 +27,7 @@ public class EditReplyServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
 			response.sendRedirect("/");
 		} else {

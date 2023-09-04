@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.common.Constants;
 import com.common.Page;
 import com.common.PageResponseDTO;
 import com.dto.MemberDTO;
@@ -33,7 +32,7 @@ public class NoticeListServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
 			response.sendRedirect("/");
 		} else {

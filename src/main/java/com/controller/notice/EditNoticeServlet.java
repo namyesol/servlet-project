@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.common.Constants;
 import com.dto.MemberDTO;
 import com.dto.notice.NoticeDTO;
 import com.service.notice.NoticeService;
@@ -31,7 +30,7 @@ public class EditNoticeServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
 			response.sendRedirect("/");
 		} else {
@@ -51,7 +50,7 @@ public class EditNoticeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
+		MemberDTO member = (MemberDTO) session.getAttribute("login");
 		if (member == null) {
 			response.sendRedirect("/");
 		} else {
