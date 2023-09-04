@@ -45,10 +45,10 @@ public class NoticeService {
 		return null;
 	}
 
-	public List<NoticeDTO> getNotices() {
+	public List<NoticeDTO> getNoticeList() {
 		SqlSession session = MySqlSessionFactory.getSession();
 		try {
-			return dao.getNotices(session); 
+			return dao.getNoticeList(session); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

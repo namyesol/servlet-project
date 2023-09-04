@@ -18,8 +18,8 @@ public class NoticeDAO {
 		return session.selectOne("NoticeMapper.getNoticeByNum", noticeNum);
 	}
 
-	public List<NoticeDTO> getNotices(SqlSession session) {
-		return session.selectList("NoticeMapper.getNotices");
+	public List<NoticeDTO> getNoticeList(SqlSession session) {
+		return session.selectList("NoticeMapper.getNoticeList");
 	}
 
 	public void update(SqlSession session, NoticeDTO notice) {
