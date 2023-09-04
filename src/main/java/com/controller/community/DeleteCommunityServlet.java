@@ -29,16 +29,14 @@ public class DeleteCommunityServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long comNum = Long.parseLong(request.getParameter("comNum"));
 			Long memNum = Long.valueOf(member.getMember_num());
 			
 			communityService.delete(comNum, memNum);
 			
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityListServlet");
+			response.sendRedirect("/CommunityListServlet");
 		}
 	}
 

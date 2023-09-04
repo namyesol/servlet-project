@@ -30,16 +30,14 @@ public class DeleteNoticeServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long memberNum = Long.valueOf(member.getMember_num());
 			long noticeNum = Long.parseLong(request.getParameter("noticeNum"));
 
 			noticeService.deleteNotice(noticeNum, memberNum);
 
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/NoticeListServlet");
+			response.sendRedirect("/NoticeListServlet");
 		}
 
 	}

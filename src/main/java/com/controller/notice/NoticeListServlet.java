@@ -35,8 +35,7 @@ public class NoticeListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			// 페이지네이션 정보 생성
 			String pageParam = request.getParameter("page");

@@ -32,8 +32,7 @@ public class NewNoticeServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			String nextPage = "notice/notice-new.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
@@ -49,8 +48,7 @@ public class NewNoticeServlet extends HttpServlet {
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 
 			Long memberNum = Long.valueOf(member.getMember_num());

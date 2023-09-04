@@ -33,8 +33,7 @@ public class EditNoticeServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long noticeNum = Long.parseLong(request.getParameter("noticeNum"));
 
@@ -54,8 +53,7 @@ public class EditNoticeServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long memberNum = Long.valueOf(member.getMember_num());
 
@@ -71,8 +69,7 @@ public class EditNoticeServlet extends HttpServlet {
 
 			noticeService.updateNotice(noticeNum, memberNum, updateDTO);
 
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/NoticeDetailsServlet" + "?noticeNum=" + noticeNum);
+			response.sendRedirect("/NoticeDetailsServlet" + "?noticeNum=" + noticeNum);
 		}
 	}
 

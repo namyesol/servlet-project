@@ -33,8 +33,7 @@ public class EditCommunityServlet extends HttpServlet{
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long comNum = Long.parseLong(request.getParameter("comNum"));
 
@@ -54,8 +53,7 @@ public class EditCommunityServlet extends HttpServlet{
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long memberNum = Long.valueOf(member.getMember_num());
 			Long comNum = Long.parseLong(request.getParameter("comNum"));
@@ -68,8 +66,7 @@ public class EditCommunityServlet extends HttpServlet{
 			
 			communityService.update(comNum, memberNum, updateDTO);
 			
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityDetailsServlet" + "?comNum=" + comNum);
+			response.sendRedirect("/CommunityDetailsServlet" + "?comNum=" + comNum);
 		}
 	}
 }

@@ -31,8 +31,7 @@ public class NewCommunityServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			String nextPage = "/community/community-new.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
@@ -45,8 +44,7 @@ public class NewCommunityServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute(Constants.Login_Member);
 		if (member == null) {
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + Constants.Login_URL);
+			response.sendRedirect("/");
 		} else {
 			Long memberNum = Long.valueOf(member.getMember_num());
 			String title = request.getParameter("title");
@@ -55,8 +53,7 @@ public class NewCommunityServlet extends HttpServlet {
 			
 			communtiyService.save(community);
 			
-			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/CommunityDetailsServlet"+ "?comNum=" + community.getComNum());
+			response.sendRedirect("/CommunityDetailsServlet"+ "?comNum=" + community.getComNum());
 		}
 	}
 
