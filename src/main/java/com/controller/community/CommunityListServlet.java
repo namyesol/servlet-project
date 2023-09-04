@@ -44,10 +44,17 @@ public class CommunityListServlet extends HttpServlet {
 			// 페이지네이션 정보 생성
 			String pageParam = request.getParameter("page");
 			String sizeParam = request.getParameter("size");
-			int pageNumber = pageParam == null ? Page.START_PAGE_OFFSET : Integer.parseInt(pageParam);
-			int size = sizeParam == null ? Page.DEFAULT_PAGE_SIZE : Integer.parseInt(sizeParam);
+			int requestPage = Page.START_PAGE_OFFSET;
+			int size = Page.DEFAULT_PAGE_SIZE;
 			
-			Page page = new Page(pageNumber, size);
+			if (pageParam != null && !pageParam.isEmpty()) {
+				requestPage = Integer.parseInt(pageParam);
+			}
+			if (sizeParam != null && !sizeParam.isEmpty()) {
+				size = Integer.parseInt(sizeParam);
+			}
+			
+			Page page = new Page(requestPage, size);
 			
 			PageResponseDTO<CommunityDetailsDTO> pageResponse = communityService.getCommunityDetailsList(page);
 			request.setAttribute("pageResponse", pageResponse);
