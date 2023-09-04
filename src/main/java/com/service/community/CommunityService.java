@@ -31,7 +31,7 @@ public class CommunityService {
     }
 
     public void save(CommunityDTO community) {
-    	SqlSession session = getSession();
+    	SqlSession session = MySqlSessionFactory.getSession();
     	try {
     		communityDao.insert(session, community);
     		session.commit();
@@ -41,13 +41,9 @@ public class CommunityService {
     		session.close();
     	}
     }
-    
-	private SqlSession getSession() {
-		return MySqlSessionFactory.getSession();
-	}
 
     public CommunityDTO getCommunityByNum(Long comNum) {
-    	SqlSession session = getSession();
+    	SqlSession session = MySqlSessionFactory.getSession();
     	try {
 	        CommunityDTO community = communityDao.getCommunityByNum(session, comNum);
 	        return community;
@@ -61,7 +57,7 @@ public class CommunityService {
     }
 
     public List<CommunityDTO> getCommunityList() {
-        SqlSession session = getSession();
+        SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			return communityDao.getCommunityList(session);
 		} catch (Exception e) {
@@ -73,7 +69,7 @@ public class CommunityService {
     }
 
     public void update(Long comNum, Long memberNum, CommunityDTO updateParam) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 	        CommunityDTO community = communityDao.getCommunityByNum(session, comNum);
 	
@@ -95,7 +91,7 @@ public class CommunityService {
     }
 
     public void delete(Long comNum, Long memberNum) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 	        CommunityDTO community = communityDao.getCommunityByNum(session, comNum);
 	
@@ -118,7 +114,7 @@ public class CommunityService {
     }
     
     public void increaseViews(Long comNum) {
-    	SqlSession session = getSession();
+    	SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			communityDao.increaseViews(session, comNum);
 			session.commit();
@@ -130,7 +126,7 @@ public class CommunityService {
     }
 
     public CommunityDetailsDTO getCommunityDetailsByNum(Long replyNum) {
-    	SqlSession session = getSession();
+    	SqlSession session = MySqlSessionFactory.getSession();
     	try {
     		return communityDao.getCommunityDetailsByNum(session, replyNum);
     	} catch (Exception e) {
@@ -144,7 +140,7 @@ public class CommunityService {
 
     
     public PageResponseDTO<CommunityDetailsDTO> getCommunityDetailsList(Page page) {
-    	SqlSession session = getSession();
+    	SqlSession session = MySqlSessionFactory.getSession();
     	try {
     		int count = communityDao.count(session);
     		List<CommunityDetailsDTO> communityDetailsList = communityDao.getCommunityDetailsList(session, page);

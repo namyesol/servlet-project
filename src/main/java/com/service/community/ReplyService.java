@@ -20,7 +20,7 @@ public class ReplyService {
     }
 
     public void save(ReplyDTO reply) {
-    	SqlSession session = getSession();
+    	SqlSession session = MySqlSessionFactory.getSession();
     	try {
             dao.insert(session, reply);
 			session.commit();
@@ -31,12 +31,8 @@ public class ReplyService {
 		}
     }
     
-	private SqlSession getSession() {
-		return MySqlSessionFactory.getSession();
-	}
-
     public List<ReplyDetailsDTO> getReplyDetailsListByComNum(Long comNum) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			return dao.getReplyDetailsListByComNum(session, comNum);
 		} catch (Exception e) {
@@ -49,7 +45,7 @@ public class ReplyService {
     
 
 	public void update(Long replyNum, Long memberNum, ReplyDTO updateDTO) {
-		SqlSession session = getSession();
+		SqlSession session = MySqlSessionFactory.getSession();
 		try {
 			ReplyDTO reply = dao.getReplyByNum(session, replyNum);
 			
@@ -70,7 +66,7 @@ public class ReplyService {
 	}
     
     public void delete(Long replyNum, Long memberNum) {
-    	SqlSession session = getSession();
+    	SqlSession session = MySqlSessionFactory.getSession();
     	try {
 	    	ReplyDTO reply = dao.getReplyByNum(session, replyNum);
 	    	
