@@ -42,9 +42,12 @@ public class NoticeListServlet extends HttpServlet {
 			// 페이지네이션 정보 생성
 			String pageParam = request.getParameter("page");
 			String sizeParam = request.getParameter("size");
-			int requestPage = Page.START_PAGE_OFFSET;
-			int size = Page.DEFAULT_PAGE_SIZE;
+			// 요청페이지의 기본 값
+			int requestPage = 1;
+			// 요청페이지의 기본 크기 
+			int size = 5;
 			
+			// 사용자의 요청이 있다면 페이지 번호와 크기를 변경함
 			if (pageParam != null && !pageParam.isEmpty()) {
 				requestPage = Integer.parseInt(pageParam);
 			}
