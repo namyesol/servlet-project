@@ -211,7 +211,7 @@ Cookie: JSESSIONID=3B089B0BECFFABABFEAAB90B585D5441
 email=hello%40example.com&password=1234
 ```
 
-##### Example 2.2.2 Form Data를 서블릿에서 변수에 할당하는 방법
+##### Example 2.2.2 Form Data를 서블릿에서 변수에 저장하는 방법
 
 ```java
 String email = request.getParameter("email");
@@ -237,17 +237,277 @@ if (sizeParam != null && !sizeParam.isEmpty()) {
 
 #### 2.3 HTTP Message Body
 
-#### 2.3.1 `text/plain`
+[서블릿에서 post body를 어떻게 읽는가?](https://jongqui.tistory.com/9)
+
+- HTTP API에서 데이터를 보낼 때 사용합니다.
+- 자바스크립트로 메시지를 보내기 때문에 jQuery나 Axios 등의 라이브러리를 사용해서 요청을 보냅니다.
+- 데이터 형식은 JSON을 주로 사용하며 요청의 메소드 타입과 컨테츠 타입을 명시합니다.
+- HTTP Method :  [POST | DELETE | PATCH ]
+- `Content-Type` : `application/json`
+
+HTTP Message Body에서 원하는 값을 읽어오는 방법은 요청의 `Content-Type`에 따라서 달라집니다.
+
+### 2.3.1  `text/plain`
+
+`content-Type `이 `text/plain`인 HTTP Message를 처리하는 방법입니다.
+
+##### Example 2.3.1 jQuery로 요청보내는 방법
+
+```javascript
+$.ajax({
+    type : "post",
+    url : "/users",
+    contentType: "application/json",
+    data : {
+        "email": 'hello@example.com',
+    	"password": 'hello'
+    },
+    success : function(response) {
+        console.log(response);
+    },
+    error : function(error) {
+        console.log(error);
+    }
+})
+```
+
+##### Example 2.3.1 Axios로 요청보내는 방법
+
+```javascript
+axios.post('/users', {
+    "email": 'hello@example.com',
+    "password": 'hello'
+  }, {
+  	'Content-Type': 'application/json'  
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+##### Example 2.3.1 `content-type=text/plain` 인 메시지 바디를 서블릿에서 문자열에 저장하는 방법
+
+```java
+BufferedReader reader = request.getReader();
+String messageBody = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+System.out.println("====MessageBody====");
+System.out.println(messageBody);
+System.out.println("===================");
+```
+
+- `HttpServletRequest` 타입인 `request` 객체의  `getReader` 메서드를 사용해서 HTTP Request의 Message Body를 읽을 수 있는 `BufferedReader` 타입의 객체 `reader` 를 가지고 올 수 있습니다.
+- `BufferedReader` 타입의 객체 `reader`의 `lines` 메서드는 Http Message Body의 각 줄을 `Stream<String>` 유헝으로 반환합니다.
+- Stream API의 `collect` 메서드를 사용해서 `Stream<String>`  유형인 HTTP Message Body 를 `String`으로 형 변환합니다.
 
 
 
 #### 2.3.2 `application/json`
 
+`content-Type `이 `application/json`인 HTTP Message를 처리하는 방법입니다.
+
+##### Example 2.3.2 jQuery로 요청 보내는 방법
+
+```javascript
+$.ajax({
+    type : "post",
+    url : "/users",
+    contentType: "application/json",
+    data : {
+        "email": 'hello@example.com',
+    	"password": 'hello'
+    },
+    success : function(response) {
+        console.log(response);
+    },
+    error : function(error) {
+        console.log(error);
+    }
+})
+```
+
+##### Example 2.3.2 Axios로 요청 보내는 방법
+
+```javascript
+axios.post('/users', {
+    "email": 'hello@example.com',
+    "password": 'hello'
+  }, {
+  	'Content-Type': 'application/json'  
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+##### Example 2.3.3 `content-type=application/json` 인 메시지 바디를 서블릿에서 문자열에 저장하는 방법
+
+```java
+BufferedReader reader = request.getReader();
+String messageBody = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+System.out.println("====MessageBody====");
+System.out.println(messageBody);
+System.out.println("===================");
+```
+
+```
+====MessageBody====
+{
+    "email": "hello@example.com",
+    "password": "hello"
+}
+===================
+```
+
+- `content-type`이 `application/json` 인 HTTP Message Body를 `messageBody` 문자열에 저장한 상태입니다.
+- `HttpServletRequest` 타입인 `request` 객체의  `getReader` 메서드를 사용해서 HTTP Request의 Message Body를 읽을 수 있는 `BufferedReader` 타입의 객체 `reader` 를 가지고 올 수 있습니다.
+- `BufferedReader` 타입의 객체 `reader`의 `lines` 메서드는 Http Message Body의 각 줄을 `Stream<String>` 유헝으로 반환합니다.
+- Stream API의 `collect` 메서드를 사용해서 `Stream<String>`  유형인 HTTP Message Body 를 `String`으로 형 변환합니다.
+
+#### 2.3.3 `content-type=application/json` 인 메시지 바디를 서블릿에서 객체에 저장하는 방법
+
+`content-type` 이 `application/json` 인 요청을 문자열에 저장했습니다. 이제 이 문자열을 객체로 저장하는 방법을 알아봅시다.
+
+JSON 형식인 문자열을 객체로 저장하기 위해서는 **JSON Object Mapper**가 필요합니다. 오브젝트 매퍼 중의 하나로 스프링에서도 사용 중인 [Jackson](https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind)을 `/WEB-INF/LIB/ ` 폴더에 추가해줍니다. `jackson-databind` 라이브러리는 `jackson-core`와  `jackson-annotations` 라이브러리를 의존하고 있기 때문에 3개의 Jar 파일을 추가해주어야 합니다.
+
+문자열을 객체로 매핑하기 위한 클래스를 생성하여 줍니다.
+
+UserData.java
+
+```java
+public class UserData {
+
+	private String email;
+	private String password;
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "UserData[email=" + this.email + ", password=" + this.password + "]";
+	}
+}
+```
+
+##### Example 2.3.3 ObjectMapper 객체 사용하기
+
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+ObjectMapper objectMapper = new ObjectMapper();
+```
+
+- `Jackson` 라이브러리에서 문자열을 객체에 매핑할 때 사용하는 `ObjectMapper`  객체를 가지고 옵니다.
+
+##### Example 2.3.3 ObjectMapper로 문자열을 객체에 매핑하기
+
+```java
+BufferedReader reader = request.getReader();
+String messageBody = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+System.out.println("====MessageBody====");
+System.out.println(messageBody);
+System.out.println("===================");
+
+UserData userData = objectMapper.readValue(messageBody, UserData.class);
+System.out.println(userData);
+```
+
+```
+====MessageBody====
+{
+    "email": "hello@example.com",
+    "password": "hello"
+}
+===================
+UserData[email=hello@example.com, password=hello]
+```
+
+- `objectMapper.readValue` 메서드를 사용합니다.
+- 첫 번째 매개변수로 `messageBody` 문자열을 두 번째 매개변수로 매핑하려는 클래스 `UserData.class` 를 지정합니다.
+- 반환되는 값은 `messageBody`를 `UserData.class` 의 프로퍼티에 값을 매핑한 `UserData` 객체입니다. 반환되는 값을 변수 `userData`에 저장합니다.
+- `JsonProcessingException` :  `objectMapper` 는 매핑 과정 중 에러가 발생하면 `JsonProcessingException ` 을 발생시킵니다. **TryCatch** 블록이나 **Throws** 키워드를 사용하여 에러 처리를 해줍니다.
+- 이 예제에서는 예외를 신경쓰지 않기 위해 **Throws** 키워드를 사용합니다.
+
+##### Example 2.3.3 ObjectMapper로 객체를 JSON형식의 문자열로 변환하기
+
+```java
+String payload = objectMapper.writeValueAsString(userData);
+
+response.setContentType("application/json");
+response.getWriter().write(payload);
+```
+
+- objectMapper의 `writeValueAsString` 메서드를 사용해서 객체를 JSON 형식의 문자열로 변환할 수 있습니다.
+- `HttpServletResponse` 의 `setContentType` 메서드로 HTTP Response의 `content-type`을 `application/json` 으로 설정할 수 있습니다.
+- `HttpServletResponse` 의 `getWriter` 메서드를 호출해서 HTTP 응답 본문을 쓸 수 있는 `PrintWriter`  개체를 불러올 수 있습니다.
+- `PrintWriter.write` 메서드를 사용해서 `userData` 객체를 문자열로 변환한  `payload` 문자열을 응답 본문에 넣어서 보내줄 수 있습니다. 
+
+##### Example 2.3.3 전체 코드
+
+com.controller.example.JsonExampleServlet.java
+
+```java
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    throws ServletException, JsonProcessingException, IOException 
+{
+    BufferedReader reader = request.getReader();
+    String messageBody = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+    System.out.println("====MessageBody====");
+    System.out.println(messageBody);
+    System.out.println("===================");
+
+    ObjectMapper objectMapper = new ObjectMapper();;
+    UserData userData = objectMapper.readValue(messageBody, UserData.class);
+    System.out.println(userData);
+
+    String payload = objectMapper.writeValueAsString(userData);
+
+    response.setContentType("application/json");
+    response.getWriter().write(payload);
+}
+```
+
 
 
 ### 3. HttpServletResponse
 
+서블릿에서 클라이언트에게 응답하는 3가지 방법
 
+#### Response.getWriter().wirte()
+
+#### Response.SendRedirect
+
+#### `RequestDispatcher.forward` 
+
+다른 서블릿이나 JSP로 이동할 수 있는 기능. 서버 내부에서 다시 호출이 발생한다.
+
+```java
+String nextPage = ".jsp";
+RequestDispatcher dispatc
+```
+
+
+
+#### 
 
 ## Oracle
 
