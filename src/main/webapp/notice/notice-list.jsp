@@ -20,16 +20,20 @@
 
 		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 			<h1 class="mt-3 mb-3">공지사항</h1>
-			<div class="d-flex justify-content-end mb-3">
+			<div class="d-flex justify-content-end mb-3 gap-2">
+				<form class="d-flex" role="search" method="get" action="">
+			        <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+			        <button class="btn btn-outline-success" type="submit">Search</button>
+		      	</form>
 				<a href="/NewNoticeServlet">
-					<button type="button" class="btn btn-primary">작성</button>
+					<button type="button" class="btn btn-outline-primary">작성</button>
 				</a>
 			</div>
 		    <div class="table-responsive">
 			    <table class="table">
 			       <thead>
 			           <tr>
-			               <th scope="col">#</th>
+			               <th scope="col">글번호</th>
 			               <th scope="col">제목</th>
 			               <th scope="col">작성자</th>
 			               <th scope="col">작성일</th>
@@ -46,7 +50,7 @@
 				        		<a href="/NoticeDetailsServlet?noticeNum=${notice.noticeNum}">${notice.title}</a>
 				        	</td>
 				        	<td>${notice.memberName}</td>
-				        	<td><fmt:formatDate value="${notice.createdAt}" pattern="M월d일"/></td>
+				        	<td><fmt:formatDate value="${notice.createdAt}" pattern="YYYY년M월d일 hh:mm"/></td>
 				    	    <td>${notice.views}</td>
 				        </tr>
 		        	</c:forEach>

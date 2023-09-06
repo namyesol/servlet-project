@@ -24,7 +24,7 @@
       			<div class="d-flex gap-2">
       				<p>글번호: ${notice.noticeNum}
 	      			<p>작성자: ${notice.memberName}</p>
-					<p>작성일: <fmt:formatDate value="${notice.createdAt}" pattern="M월d일 hh:mm"/></p>
+					<p>작성일: <fmt:formatDate value="${notice.createdAt}" pattern="YYYY년M월d일 hh:mm"/></p>
 					<p>조회수: ${notice.views}</p>
       			</div>
       			<p class="text-break">${notice.content}</p>
