@@ -99,7 +99,10 @@
    	</div>
 </div>
 <script>
-	const editToggle = (event) => {
+document.addEventListener("DOMContentLoaded", () => {
+	console.log("DOMContentLoaded");
+	
+	const toggleEditForm = (event) => {
 		if (event.target.tagName.toLowerCase() === 'button') {
 			console.log(event.target);
 			console.log(event.currentTarget);
@@ -116,7 +119,7 @@
 		}
 	}
 	
-	const replyToggle = (event) => {
+	const toggleReplyForm = (event) => {
 		if (event.target.tagName.toLowerCase() === 'button') {
 			if (event.target.classList.contains('reply-toggle-button')) {
 				event.preventDefault();
@@ -135,10 +138,12 @@
 	
 	for (let article of articles) {
 		if (article.dataset.replyNum) {
-			article.addEventListener('click', editToggle);
-			article.addEventListener('click', replyToggle);
+			article.addEventListener('click', toggleEditForm);
+			article.addEventListener('click', toggleReplyForm);
 		}
 	}
+});
+
 </script>
 </body>
 </html>
