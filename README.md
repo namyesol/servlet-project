@@ -507,7 +507,6 @@ RequestDispatcher dispatc
 
 
 
-#### 
 
 
 ## Oracle Database
@@ -558,6 +557,12 @@ SQL 키워드의 실행 순서는 아래와 같다. **문법의 순서와 실행
 
 
 #### ROWNUM Pseudo Column
+
+https://turing0809.tistory.com/48
+
+https://stackoverflow.com/questions/30321483/how-rownum-works-in-pagination-query
+
+https://asktom.oracle.com/Misc/oramag/on-rownum-and-limiting-results.html
 
 `ROWNUM` 가상 열은 SELECT 해온 데이터에 행 번호를 붙힌다.
 
@@ -612,30 +617,102 @@ WHERE ROWNUM <= 10;
 - `ORDER BY` 절이 `WHERE` 절보다 먼저 실행되어야 상위 N개의 행을 구할 수 있다.
 - `ORDER BY` 을 적용해서 연봉 순으로 내림차순 정렬하는 쿼리를 서브쿼리로 사용한다.
 - 서브쿼리에서 반환한 값을 `WHERE`  절을 사용해 필터링한다.
+- `ROWNUM` 은 집계 함수의 일종인 분석 함수의 기능이기 때문 실행 순서 8번의 위치에서 실행된다. 그러므로  `ORDER BY` 절이 있으면 `ROWNUM` 까지 정렬된다.
 
 
 
-### INDEX 란?
+### 4. Pagination 이란?
+
+[페이징에 대한 이해 - 1. 페이지 번호를 생성하자](https://zepinos.tistory.com/28)
+
+[페이징에 대한 이해 - 2.  ROWNUM을 이용한 게시물 가져오기](https://zepinos.tistory.com/29)
+
+[페이징에 대한 이해 -3. LIMIT와 TOP을 이용한 게시물 가져오기](https://zepinos.tistory.com/30)
+
+[Oracle DB: 실행 계획, 인덱스,  ROWNUM, Pagination](https://bambookim.tistory.com/11)
+
+페이지네이션이란 특정한 정렬 기준에 따라 지정된 개수의 데이터를 가져오는 것을 말하며 `Offset-based Pagination` 은 Offset Query를 사용하며 페이지 단위로 테이터를 요청한다. 
+
+오라클 데이터베이스에서는 `ROWNUM`을 이용해서 데이터를 페이지네이션 할 수 있다.
 
 
 
-### 
+#### 상위 5번부터 10번까지의 연봉 순위
+
+Example 4.1.1 상위 1번부터 10번까지 연봉 순위
+
+```sql
+SELECT *
+FROM (
+    SELECT ROWNUM as RN, E.*
+	FROM emp E
+	ORDER BY sal DESC)
+WHERE RN <= 10;
+```
+
+- `ROWNUM` 은 집계 함수 분석 함수 어쩌구 `WHERE` 절에서 제대로 참조 못함 어쩌구 그래서 이중으로 감싸야한다.
+- 먼저 1~10번까지의 TOP-N 쿼리를 구한다.
+
+Example 4.1.2 상위 5번부터 10번까지의 연봉 순위
+
+```sql
+SELECT *
+FROM (
+    SELECT *
+    FROM (
+        SELECT ROWNUM as RN, E.*
+        FROM emp E
+        ORDER BY sal DESC)
+    WHERE RN <= 10)
+WHERE RN >= 5;
+```
 
 
 
-#### Hints?
+
+
+##### Example 4.? 오프셋 기반 오라클 페이지네이션
+
+```sql
+SELECT *
+FROM (
+    SELECT ROW_NUMBER() OVER(ORDER by userCode DESC) AS row_num
+        ,userCode
+        ,userName
+    FROM testTable)
+WHERE row_num BETWEEN 0 AND 10;
+```
+
+```sql
+SELECT count(*) from posts;
+```
 
 
 
-### MyBatis
+요청한 데이터를 바로 조회하는 것이 아니라, 이전의 데이터를 모두 조회하고 그 ResultSet에서 오프셋을 조건으로 잘라내는 것이다
+
+```sql
+SELECT *
+FROM (
+    SELECT row_number() over (ORDER BY timestamp) rnum, A.*
+    FROM table A
+    ORDER BY timestamp
+) 
+WHERE rnum BETWEEN 6 AND 10
+```
+
+*timestamp*를 정렬 기준으로 전체 데이터의 행번호를 출력하고 이 번호를 기준으로 잘라내는 것이다.
 
 
 
-`<![CDATA[]]>` 란
+Index 란?
+
+Hint 란?
 
 
 
 
 
-### JSP
+## MyBatis
 
+### `<![CDATA[]]>`  사용하기
