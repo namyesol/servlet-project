@@ -509,7 +509,8 @@ RequestDispatcher dispatc
 
 #### 
 
-## Oracle
+
+## Oracle Database
 
 https://oracle.readthedocs.io/en/latest/index.html
 
@@ -517,7 +518,9 @@ https://oracle.readthedocs.io/en/latest/index.html
 
 
 
-**SQL 문법 순서**
+### 1.SQL 문법 순서
+
+SQL 쿼리를 작성 할 때 키워드의 순서는 다음과 같다.
 
 1. SELECT
 2. FROM
@@ -528,7 +531,9 @@ https://oracle.readthedocs.io/en/latest/index.html
 
 
 
-**오라클의 쿼리 실행 순서** 
+### 2. SQL 키워드 실행 순서
+
+SQL 키워드의 실행 순서는 아래와 같다. **문법의 순서와 실행 순서가 다르다는 것**을 알 수 있다.
 
 1. FROM : 테이블 선택
 2. ON : 조인 조건 확인
@@ -546,15 +551,75 @@ https://oracle.readthedocs.io/en/latest/index.html
 
 
 
+### 3. TOP-N 쿼리란?
+
+상위 n개의 데이터를 추출하는 쿼리 e.g. *멜론 차트 Top 100*, 왕가탕후루 판매 순위 10
+
+
+
+#### ROWNUM Pseudo Column
+
+`ROWNUM` 가상 열은 SELECT 해온 데이터에 행 번호를 붙힌다.
+
+##### Example 3.1.1 ROWNUM 예제
+
+```sql
+SELECT ROWNUM, E.* FROM emp E;
+```
+
+`WHERE` 절과 함께 행의 개수를 제한하는 용도로 사용할 수 있다.
+
+##### Example 3.1.2 ROWNUM 행 개수 제한하기
+
+```sql
+SELECT ROWNUM, E.*
+FROM emp E
+where ROWNUM <= 10;
+```
+
+- 전체 결과행 중 1번부터 10번까지 가져온다.
+
+
+
+#### Top-N Query
+
+`ROWNUM` , `WHERE` , `ORDER BY` 절을 조합해서 상위 N개의 쿼리를 구할 수 있다.
+
+##### Example 3.1.2 TOP-N Query 잘못된 사용법
+
+```sql
+SELECT ROWNUM, E.*
+FROM emp E
+WHERE ROWNUM <= 10
+ORDER BY sal DESC;
+```
+
+- 연봉 순으로 내림차순 정렬 한 다음 10개행의 목록을 구하는 쿼리이다. 
+- 실행 결과는 상위 연봉 10명의 목록이 나올 것 같지만 그렇지 않다. 
+- SQL 구문의 실행 순서상 `WHERE` 절이 `ORDER BY` 절보다 앞서 실행되므로 전체 테이블에서 10개행의 목록을 가지고 온 후 정렬하기 때문이다.
+
+##### Example 3.1.3 서브쿼리를 이용한 TOP-N QUERY 올바른 사용법
+
+```sql
+SELECT *
+FROM (
+    SELECT ROWNUM, E.*
+	FROM emp E
+	ORDER BY sal DESC)
+WHERE ROWNUM <= 10;
+```
+
+- `ORDER BY` 절이 `WHERE` 절보다 먼저 실행되어야 상위 N개의 행을 구할 수 있다.
+- `ORDER BY` 을 적용해서 연봉 순으로 내림차순 정렬하는 쿼리를 서브쿼리로 사용한다.
+- 서브쿼리에서 반환한 값을 `WHERE`  절을 사용해 필터링한다.
+
+
+
 ### INDEX 란?
 
 
 
-#### TOP-N 쿼리란?
-
-
-
-#### Paginations ? 
+### 
 
 
 
